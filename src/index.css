@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;600;700&display=swap');
+
+@import "tailwindcss";
+
+/* ============================================
+   BACCO DESIGN TOKENS (Tailwind v4 Theme)
+   ============================================ */
+@theme {
+  /* Colors */
+  --color-primary: #7C1C23;
+  --color-parchment: #F5F1E6;
+  --color-gold: #B08D57;
+  --color-espresso: #2A1A1A;
+
+  /* Font Families */
+  --font-heading: "Playfair Display", Georgia, serif;
+  --font-body: Lato, system-ui, sans-serif;
+
+  /* Custom Shadows for the "Bacco Vibe" */
+  --shadow-bacco: 0 8px 30px -5px rgba(42, 26, 26, 0.15), 0 4px 10px -5px rgba(42, 26, 26, 0.1);
+  --shadow-bacco-lg: 0 15px 50px -10px rgba(42, 26, 26, 0.2), 0 8px 20px -10px rgba(42, 26, 26, 0.15);
+  --shadow-bacco-card: 0 10px 40px -10px rgba(42, 26, 26, 0.18), 0 6px 15px -8px rgba(42, 26, 26, 0.12);
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-espresso);
+  background-color: var(--color-parchment);
+  margin: 0;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+}
+
+button {
+  font-family: inherit;
+}
+
+img {
+  transition: opacity 0.3s ease;
+}
+
+::selection {
+  background-color: rgba(124, 28, 35, 0.2);
+  color: var(--color-espresso);
+}
+
+/* ============================================
+   FORM INPUT STYLING
+   ============================================ */
+
+/* Date and Time picker accent color */
+input[type="date"],
+input[type="time"] {
+  accent-color: var(--color-primary);
+}
+
+/* WebKit date/time picker styling */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover,
+input[type="time"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+/* Number input spinner styling */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  opacity: 1;
+}
