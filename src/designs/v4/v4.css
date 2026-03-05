@@ -1,0 +1,781 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+/* ============================================
+   V4 DESIGN TOKENS – "Trattoria"
+   Retro Italian, red-white checkered, holiday vibes
+   ============================================ */
+
+:root .design-v4 {
+    --v4-bg: #FDF8F0;
+    --v4-bg-warm: #F5EDE0;
+    --v4-bg-card: #FFFFFF;
+
+    --v4-ink: #2B1810;
+    --v4-ink-muted: #6B4F3E;
+    --v4-ink-subtle: #A08770;
+
+    --v4-rosso: #C03328;
+    --v4-rosso-dark: #9E2920;
+    --v4-rosso-light: #E85D52;
+    --v4-rosso-bg: rgba(192, 51, 40, 0.06);
+
+    --v4-verde: #2D6B4A;
+    --v4-verde-light: #3D8B62;
+
+    --v4-cream: #FDF8F0;
+    --v4-warm-white: #FEFCF8;
+
+    --v4-font-display: 'Libre Baskerville', 'Georgia', serif;
+    --v4-font-body: 'Outfit', system-ui, sans-serif;
+
+    --v4-section-gap: clamp(4rem, 8vw, 6rem);
+    --v4-radius: 4px;
+
+    --v4-shadow: 0 2px 12px rgba(43, 24, 16, 0.08);
+    --v4-shadow-card: 0 4px 20px rgba(43, 24, 16, 0.1);
+}
+
+/* ============================================
+   V4 GINGHAM PATTERN (CSS-only)
+   ============================================ */
+.v4-gingham {
+    background-image:
+        linear-gradient(45deg, rgba(192, 51, 40, 0.08) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(192, 51, 40, 0.08) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(192, 51, 40, 0.08) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(192, 51, 40, 0.08) 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
+.v4-gingham-border {
+    height: 6px;
+    background-image: repeating-linear-gradient(90deg,
+            var(--v4-rosso) 0px,
+            var(--v4-rosso) 8px,
+            var(--v4-cream) 8px,
+            var(--v4-cream) 16px);
+}
+
+.v4-gingham-border-thick {
+    height: 12px;
+    background-image:
+        repeating-linear-gradient(90deg,
+            var(--v4-rosso) 0px, var(--v4-rosso) 12px,
+            transparent 12px, transparent 24px),
+        repeating-linear-gradient(0deg,
+            var(--v4-rosso) 0px, var(--v4-rosso) 6px,
+            transparent 6px, transparent 12px);
+    background-blend-mode: multiply;
+    opacity: 0.25;
+}
+
+/* ============================================
+   V4 BASE
+   ============================================ */
+.design-v4 {
+    font-family: var(--v4-font-body);
+    background-color: var(--v4-bg);
+    color: var(--v4-ink);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+.design-v4 ::selection {
+    background-color: rgba(192, 51, 40, 0.15);
+    color: var(--v4-ink);
+}
+
+/* ============================================
+   V4 TYPOGRAPHY
+   ============================================ */
+.v4-display {
+    font-family: var(--v4-font-display);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--v4-ink);
+}
+
+.v4-display-light {
+    font-family: var(--v4-font-display);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--v4-ink);
+}
+
+.v4-label {
+    font-family: var(--v4-font-body);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--v4-rosso);
+}
+
+.v4-body {
+    font-family: var(--v4-font-body);
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--v4-ink-muted);
+}
+
+.v4-body-accent {
+    font-family: var(--v4-font-display);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--v4-ink);
+}
+
+/* ============================================
+   V4 HEADER – Retro banner style
+   ============================================ */
+.v4-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    transition: all 0.4s ease;
+}
+
+.v4-header-bar {
+    padding: 1rem 0;
+    transition: all 0.4s ease;
+}
+
+.v4-header.scrolled .v4-header-bar {
+    background: rgba(253, 248, 240, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 2px 15px rgba(43, 24, 16, 0.08);
+}
+
+.v4-header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.v4-logo-wrap {
+    text-align: center;
+}
+
+.v4-logo {
+    font-family: var(--v4-font-display);
+    font-weight: 700;
+    font-size: 1.75rem;
+    color: var(--v4-rosso);
+    line-height: 1;
+}
+
+.v4-logo-tagline {
+    font-family: var(--v4-font-body);
+    font-size: 0.5rem;
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--v4-ink-subtle);
+    margin-top: 2px;
+}
+
+.v4-nav {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .v4-nav {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+    }
+}
+
+.v4-nav-link {
+    font-family: var(--v4-font-body);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--v4-ink-muted);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.v4-nav-link:hover {
+    color: var(--v4-rosso);
+}
+
+/* ============================================
+   V4 BUTTONS
+   ============================================ */
+.v4-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--v4-font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: white;
+    background: var(--v4-rosso);
+    padding: 0.85rem 1.75rem;
+    border: 2px solid var(--v4-rosso);
+    border-radius: var(--v4-radius);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.v4-btn-primary:hover {
+    background: var(--v4-rosso-dark);
+    border-color: var(--v4-rosso-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(192, 51, 40, 0.25);
+}
+
+.v4-btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--v4-font-body);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--v4-rosso);
+    background: transparent;
+    padding: 0.85rem 1.75rem;
+    border: 2px solid var(--v4-rosso);
+    border-radius: var(--v4-radius);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.v4-btn-outline:hover {
+    background: var(--v4-rosso);
+    color: white;
+}
+
+/* ============================================
+   V4 HERO – Bold retro split
+   ============================================ */
+.v4-hero {
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    padding: 7rem 0 3rem;
+    position: relative;
+}
+
+.v4-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 45%;
+    height: 100%;
+    background: var(--v4-rosso);
+    opacity: 0.04;
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .v4-hero::before {
+        display: block;
+    }
+}
+
+.v4-hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+@media (min-width: 1024px) {
+    .v4-hero-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+    }
+}
+
+.v4-hero-text {
+    max-width: 480px;
+    position: relative;
+    z-index: 2;
+}
+
+.v4-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.875rem;
+    border: 2px solid var(--v4-rosso);
+    border-radius: var(--v4-radius);
+    margin-bottom: 1.5rem;
+}
+
+.v4-hero-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 1.5rem;
+    line-height: 1.08;
+}
+
+.v4-hero-title .v4-rosso-text {
+    color: var(--v4-rosso);
+}
+
+.v4-hero-subtitle {
+    font-size: clamp(0.9375rem, 1.2vw, 1.0625rem);
+    margin-bottom: 2rem;
+}
+
+.v4-hero-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.v4-hero-image-wrap {
+    position: relative;
+    z-index: 2;
+}
+
+.v4-hero-image {
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    border-radius: var(--v4-radius);
+    border: 3px solid var(--v4-rosso);
+    box-shadow: 8px 8px 0 var(--v4-rosso);
+}
+
+.v4-hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.v4-hero-image:hover img {
+    transform: scale(1.04);
+}
+
+/* Tilted accent photo */
+.v4-hero-accent-photo {
+    position: absolute;
+    bottom: -1.5rem;
+    right: -1.5rem;
+    width: 40%;
+    aspect-ratio: 1;
+    border-radius: var(--v4-radius);
+    overflow: hidden;
+    border: 3px solid white;
+    box-shadow: var(--v4-shadow-card);
+    transform: rotate(4deg);
+    z-index: 3;
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .v4-hero-accent-photo {
+        display: block;
+    }
+}
+
+.v4-hero-accent-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ============================================
+   V4 FILOSOFIA – Card with gingham accent
+   ============================================ */
+.v4-filosofia {
+    padding: var(--v4-section-gap) clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.v4-filosofia-card {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: var(--v4-bg-card);
+    border-radius: var(--v4-radius);
+    box-shadow: var(--v4-shadow-card);
+    overflow: hidden;
+}
+
+.v4-filosofia-card-gingham {
+    height: 6px;
+    background-image: repeating-linear-gradient(90deg,
+            var(--v4-rosso) 0px, var(--v4-rosso) 8px,
+            var(--v4-warm-white) 8px, var(--v4-warm-white) 16px);
+}
+
+.v4-filosofia-card-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+}
+
+@media (min-width: 1024px) {
+    .v4-filosofia-card-inner {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.v4-filosofia-image {
+    aspect-ratio: 1;
+    overflow: hidden;
+}
+
+.v4-filosofia-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.v4-filosofia-image:hover img {
+    transform: scale(1.04);
+}
+
+.v4-filosofia-text {
+    padding: clamp(2rem, 4vw, 3.5rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.v4-filosofia-title {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    margin-bottom: 1.25rem;
+}
+
+.v4-filosofia-body {
+    font-size: clamp(0.9375rem, 1.1vw, 1rem);
+    margin-bottom: 1.25rem;
+}
+
+.v4-filosofia-quote {
+    font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+    padding: 1.25rem;
+    border-left: 3px solid var(--v4-rosso);
+    background: var(--v4-rosso-bg);
+    border-radius: 0 var(--v4-radius) var(--v4-radius) 0;
+    margin-bottom: 1.25rem;
+}
+
+.v4-filosofia-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--v4-rosso);
+}
+
+/* ============================================
+   V4 GALLERY – Polaroid style
+   ============================================ */
+.v4-gallery {
+    padding: var(--v4-section-gap) clamp(1.25rem, 4vw, 2.5rem);
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.v4-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .v4-gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.25rem;
+    }
+}
+
+.v4-gallery-item {
+    background: white;
+    padding: 0.5rem 0.5rem 2rem;
+    box-shadow: var(--v4-shadow);
+    border-radius: 2px;
+    transition: transform 0.4s ease;
+}
+
+.v4-gallery-item:nth-child(2) {
+    transform: rotate(1.5deg);
+}
+
+.v4-gallery-item:nth-child(3) {
+    transform: rotate(-1deg);
+}
+
+.v4-gallery-item:nth-child(4) {
+    transform: rotate(2deg);
+}
+
+.v4-gallery-item:hover {
+    transform: rotate(0deg) translateY(-4px) !important;
+    box-shadow: var(--v4-shadow-card);
+}
+
+.v4-gallery-item-image {
+    aspect-ratio: 1;
+    overflow: hidden;
+}
+
+.v4-gallery-item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(1.1) contrast(1.05);
+}
+
+.v4-gallery-item-label {
+    font-family: var(--v4-font-display);
+    font-style: italic;
+    font-size: 0.8125rem;
+    color: var(--v4-ink-muted);
+    text-align: center;
+    margin-top: 0.625rem;
+}
+
+/* ============================================
+   V4 TEAM
+   ============================================ */
+.v4-team {
+    padding: var(--v4-section-gap) clamp(1.25rem, 4vw, 2.5rem);
+    background: var(--v4-bg-warm);
+}
+
+.v4-team-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+@media (min-width: 1024px) {
+    .v4-team-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+    }
+}
+
+.v4-team-image {
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    border-radius: var(--v4-radius);
+    border: 3px solid var(--v4-rosso);
+    box-shadow: -6px 6px 0 var(--v4-rosso);
+    order: 2;
+}
+
+@media (min-width: 1024px) {
+    .v4-team-image {
+        order: -1;
+    }
+}
+
+.v4-team-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.v4-team-image:hover img {
+    transform: scale(1.04);
+}
+
+.v4-team-text {
+    max-width: 480px;
+}
+
+@media (min-width: 1024px) {
+    .v4-team-text {
+        justify-self: end;
+    }
+}
+
+.v4-team-title {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    margin-bottom: 1.25rem;
+}
+
+.v4-team-body {
+    font-size: clamp(0.9375rem, 1.1vw, 1rem);
+    margin-bottom: 1.25rem;
+}
+
+/* ============================================
+   V4 LOCATION
+   ============================================ */
+.v4-location {
+    padding: var(--v4-section-gap) clamp(1.25rem, 4vw, 2.5rem);
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.v4-location-image {
+    border-radius: var(--v4-radius);
+    overflow: hidden;
+    aspect-ratio: 21/9;
+    border: 3px solid var(--v4-rosso);
+    box-shadow: 6px 6px 0 var(--v4-rosso);
+}
+
+.v4-location-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(1.05);
+}
+
+/* ============================================
+   V4 FOOTER
+   ============================================ */
+.v4-footer {
+    margin-top: var(--v4-section-gap);
+    background: var(--v4-ink);
+    color: var(--v4-cream);
+}
+
+.v4-footer-gingham {
+    height: 6px;
+    background-image: repeating-linear-gradient(90deg,
+            var(--v4-rosso) 0px, var(--v4-rosso) 8px,
+            var(--v4-ink) 8px, var(--v4-ink) 16px);
+}
+
+.v4-footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: clamp(3rem, 6vw, 5rem) clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.v4-footer-top {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .v4-footer-top {
+        grid-template-columns: repeat(3, 1fr);
+        text-align: left;
+    }
+}
+
+.v4-footer-col-title {
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--v4-rosso-light);
+    margin-bottom: 0.875rem;
+}
+
+.v4-footer-col p {
+    font-size: 0.9375rem;
+    color: rgba(253, 248, 240, 0.7);
+    line-height: 1.8;
+}
+
+.v4-footer-col strong {
+    color: var(--v4-cream);
+    font-weight: 500;
+}
+
+.v4-footer-phone {
+    display: inline-block;
+    font-family: var(--v4-font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--v4-cream);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+.v4-footer-phone:hover {
+    color: var(--v4-rosso-light);
+}
+
+.v4-footer-cash-notice {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid rgba(192, 51, 40, 0.4);
+    border-radius: var(--v4-radius);
+    color: var(--v4-rosso-light);
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-top: 0.75rem;
+}
+
+.v4-footer-route-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.875rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--v4-cream);
+    text-decoration: none;
+    border: 1px solid rgba(253, 248, 240, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: var(--v4-radius);
+    transition: all 0.3s ease;
+}
+
+.v4-footer-route-btn:hover {
+    border-color: var(--v4-cream);
+    background: rgba(253, 248, 240, 0.05);
+}
+
+.v4-footer-bottom {
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(253, 248, 240, 0.1);
+    text-align: center;
+}
+
+.v4-footer-bottom p {
+    font-size: 0.6875rem;
+    color: rgba(253, 248, 240, 0.35);
+    letter-spacing: 0.08em;
+}
+
+/* ============================================
+   V4 ANIMATIONS
+   ============================================ */
+.v4-reveal {
+    opacity: 0;
+    transform: translateY(25px);
+}
+
+/* ============================================
+   V4 MOBILE BAR
+   ============================================ */
+.v4-mobile-bar {
+    background: var(--v4-bg);
+    border-top: 3px solid var(--v4-rosso);
+}

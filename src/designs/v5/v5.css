@@ -1,0 +1,622 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
+
+/* ============================================
+   V5 DESIGN TOKENS – "Bottega"
+   Ultra-minimal, typography-driven, Vignelli-esque
+   ============================================ */
+
+:root .design-v5 {
+    --v5-bg: #FAFAFA;
+    --v5-bg-alt: #F2F2F0;
+    --v5-white: #FFFFFF;
+
+    --v5-ink: #111111;
+    --v5-ink-70: rgba(17, 17, 17, 0.7);
+    --v5-ink-40: rgba(17, 17, 17, 0.4);
+    --v5-ink-15: rgba(17, 17, 17, 0.15);
+    --v5-ink-08: rgba(17, 17, 17, 0.08);
+    --v5-ink-04: rgba(17, 17, 17, 0.04);
+
+    --v5-accent: #C0392B;
+
+    --v5-font-display: 'Space Grotesk', system-ui, sans-serif;
+    --v5-font-serif: 'Instrument Serif', 'Georgia', serif;
+    --v5-font-body: 'Space Grotesk', system-ui, sans-serif;
+
+    --v5-section-gap: clamp(5rem, 10vw, 8rem);
+    --v5-max-w: 1080px;
+}
+
+/* ============================================
+   V5 BASE
+   ============================================ */
+.design-v5 {
+    font-family: var(--v5-font-body);
+    background-color: var(--v5-bg);
+    color: var(--v5-ink);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+.design-v5 ::selection {
+    background-color: var(--v5-ink);
+    color: var(--v5-bg);
+}
+
+/* ============================================
+   V5 TYPOGRAPHY
+   ============================================ */
+.v5-display {
+    font-family: var(--v5-font-display);
+    font-weight: 700;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+}
+
+.v5-serif {
+    font-family: var(--v5-font-serif);
+    font-weight: 400;
+    font-style: italic;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.v5-label {
+    font-family: var(--v5-font-body);
+    font-size: 0.625rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--v5-ink-40);
+}
+
+.v5-body {
+    font-family: var(--v5-font-body);
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--v5-ink-70);
+    font-size: 0.9375rem;
+}
+
+.v5-number {
+    font-family: var(--v5-font-display);
+    font-weight: 700;
+    font-size: 7rem;
+    line-height: 1;
+    color: var(--v5-ink-08);
+    letter-spacing: -0.04em;
+}
+
+/* ============================================
+   V5 HEADER – Invisible, minimal
+   ============================================ */
+.v5-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    padding: 1.25rem 0;
+    transition: all 0.4s ease;
+}
+
+.v5-header.scrolled {
+    background: rgba(250, 250, 250, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--v5-ink-08);
+}
+
+.v5-header-inner {
+    max-width: var(--v5-max-w);
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.v5-logo {
+    font-family: var(--v5-font-display);
+    font-weight: 700;
+    font-size: 1.125rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--v5-ink);
+}
+
+.v5-logo-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--v5-accent);
+    margin-left: 2px;
+    vertical-align: super;
+}
+
+.v5-nav {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .v5-nav {
+        display: flex;
+        gap: 2.5rem;
+        align-items: center;
+    }
+}
+
+.v5-nav-link {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--v5-ink-40);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.v5-nav-link:hover {
+    color: var(--v5-ink);
+}
+
+/* ============================================
+   V5 BUTTONS
+   ============================================ */
+.v5-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--v5-font-body);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--v5-bg);
+    background: var(--v5-ink);
+    padding: 0.875rem 2rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.v5-btn-primary:hover {
+    background: var(--v5-accent);
+}
+
+.v5-btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--v5-font-body);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--v5-ink);
+    background: transparent;
+    padding: 0.875rem 1.5rem;
+    border: 1px solid var(--v5-ink-15);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+.v5-btn-ghost:hover {
+    border-color: var(--v5-ink);
+}
+
+/* ============================================
+   V5 HERO – Giant typography, asymmetric
+   ============================================ */
+.v5-hero {
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    padding: 7rem 0 4rem;
+}
+
+.v5-hero-inner {
+    max-width: var(--v5-max-w);
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+    width: 100%;
+}
+
+.v5-hero-overline {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.v5-hero-overline::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--v5-ink-15);
+    max-width: 120px;
+}
+
+.v5-hero-title {
+    font-size: clamp(3.5rem, 9vw, 7.5rem);
+    margin-bottom: 2rem;
+    max-width: 900px;
+}
+
+.v5-hero-bottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.v5-hero-desc {
+    max-width: 380px;
+}
+
+.v5-hero-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.v5-hero-image-strip {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3px;
+    max-width: var(--v5-max-w);
+}
+
+.v5-hero-image-strip-item {
+    overflow: hidden;
+    aspect-ratio: 16/9;
+}
+
+.v5-hero-image-strip-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1) contrast(1.1);
+    transition: filter 0.6s ease;
+}
+
+.v5-hero-image-strip-item:hover img {
+    filter: grayscale(0);
+}
+
+/* ============================================
+   V5 SECTION – Filosofia (numbered)
+   ============================================ */
+.v5-section {
+    padding: var(--v5-section-gap) clamp(1.25rem, 4vw, 2.5rem);
+    max-width: var(--v5-max-w);
+    margin: 0 auto;
+}
+
+.v5-section-numbered {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: clamp(2rem, 4vw, 4rem);
+    align-items: start;
+}
+
+@media (max-width: 767px) {
+    .v5-section-numbered {
+        grid-template-columns: 1fr;
+    }
+
+    .v5-number {
+        font-size: 4rem;
+    }
+}
+
+.v5-section-title {
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.02em;
+}
+
+.v5-section-quote {
+    font-family: var(--v5-font-serif);
+    font-style: italic;
+    font-size: clamp(1.25rem, 2vw, 1.625rem);
+    line-height: 1.5;
+    color: var(--v5-ink);
+    margin: 1.5rem 0;
+    padding-left: 1.5rem;
+    border-left: 2px solid var(--v5-accent);
+}
+
+.v5-section-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--v5-accent);
+    margin-top: 0.5rem;
+}
+
+/* ============================================
+   V5 DIVIDER
+   ============================================ */
+.v5-divider {
+    max-width: var(--v5-max-w);
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.v5-divider-line {
+    height: 1px;
+    background: var(--v5-ink-08);
+}
+
+/* ============================================
+   V5 GALLERY – Grid, B&W hover
+   ============================================ */
+.v5-gallery {
+    padding: var(--v5-section-gap) clamp(1.25rem, 4vw, 2.5rem);
+    max-width: var(--v5-max-w);
+    margin: 0 auto;
+}
+
+.v5-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3px;
+}
+
+@media (min-width: 768px) {
+    .v5-gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.v5-gallery-item {
+    overflow: hidden;
+    aspect-ratio: 1;
+    position: relative;
+}
+
+.v5-gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1) contrast(1.05);
+    transition: filter 0.5s ease, transform 0.5s ease;
+}
+
+.v5-gallery-item:hover img {
+    filter: grayscale(0);
+    transform: scale(1.04);
+}
+
+.v5-gallery-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--v5-ink-08);
+    pointer-events: none;
+}
+
+/* ============================================
+   V5 TEAM – Minimal split
+   ============================================ */
+.v5-team {
+    padding: var(--v5-section-gap) clamp(1.25rem, 4vw, 2.5rem);
+    max-width: var(--v5-max-w);
+    margin: 0 auto;
+}
+
+.v5-team-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .v5-team-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+    }
+}
+
+.v5-team-image {
+    overflow: hidden;
+    aspect-ratio: 4/5;
+}
+
+.v5-team-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(0.8);
+    transition: filter 0.5s ease;
+}
+
+.v5-team-image:hover img {
+    filter: grayscale(0);
+}
+
+.v5-team-text {
+    max-width: 440px;
+}
+
+@media (min-width: 768px) {
+    .v5-team-text {
+        justify-self: end;
+    }
+}
+
+.v5-team-title {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.02em;
+}
+
+/* ============================================
+   V5 LOCATION – Full-bleed B&W
+   ============================================ */
+.v5-location {
+    padding: var(--v5-section-gap) 0;
+}
+
+.v5-location-image {
+    overflow: hidden;
+    aspect-ratio: 21/9;
+}
+
+.v5-location-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1) contrast(1.1);
+    transition: filter 0.8s ease;
+}
+
+.v5-location-image:hover img {
+    filter: grayscale(0);
+}
+
+/* ============================================
+   V5 FOOTER – Structured grid
+   ============================================ */
+.v5-footer {
+    margin-top: var(--v5-section-gap);
+    border-top: 1px solid var(--v5-ink-08);
+    padding: clamp(3rem, 6vw, 5rem) clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.v5-footer-inner {
+    max-width: var(--v5-max-w);
+    margin: 0 auto;
+}
+
+.v5-footer-top {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .v5-footer-top {
+        grid-template-columns: repeat(3, 1fr);
+        text-align: left;
+    }
+}
+
+.v5-footer-col-title {
+    font-size: 0.5625rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--v5-ink-40);
+    margin-bottom: 0.875rem;
+}
+
+.v5-footer-col p {
+    font-size: 0.875rem;
+    color: var(--v5-ink-70);
+    line-height: 1.8;
+}
+
+.v5-footer-col strong {
+    color: var(--v5-ink);
+    font-weight: 500;
+}
+
+.v5-footer-phone {
+    display: inline-block;
+    font-family: var(--v5-font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--v5-ink);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+    transition: color 0.2s ease;
+    margin-top: 0.5rem;
+}
+
+.v5-footer-phone:hover {
+    color: var(--v5-accent);
+}
+
+.v5-footer-cash-notice {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--v5-accent);
+}
+
+.v5-footer-route-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.875rem;
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--v5-ink-40);
+    text-decoration: none;
+    border: 1px solid var(--v5-ink-15);
+    padding: 0.5rem 1rem;
+    transition: all 0.2s ease;
+}
+
+.v5-footer-route-btn:hover {
+    border-color: var(--v5-ink);
+    color: var(--v5-ink);
+}
+
+.v5-footer-bottom {
+    padding-top: 2rem;
+    border-top: 1px solid var(--v5-ink-08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.v5-footer-bottom p {
+    font-size: 0.625rem;
+    color: var(--v5-ink-40);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+.v5-footer-accent-line {
+    width: 40px;
+    height: 2px;
+    background: var(--v5-accent);
+}
+
+/* ============================================
+   V5 ANIMATIONS
+   ============================================ */
+.v5-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* ============================================
+   V5 MOBILE BAR
+   ============================================ */
+.v5-mobile-bar {
+    background: var(--v5-bg);
+    border-top: 1px solid var(--v5-ink-08);
+}

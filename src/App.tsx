@@ -10,11 +10,14 @@ import { MobileActionBar } from './components/MobileActionBar';
 import headerFresco from './assets/frescos/header-fresco.png';
 import filosofiaFresco from './assets/frescos/filosofia-fresco.png';
 
+// Placeholder images (replace with real photos later)
+import heroPlaceholder from './assets/placeholders/hero.jpg';
+
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
 // Image URLs
-const HERO_IMAGE = 'https://www.caffebacco.at/.cm4all/uproc.php/0/.WhatsApp%20Image%202024-07-08%20at%2018.29.18%20(1).jpeg/picture-2600?_=190c566a1a0';
+const HERO_IMAGE = heroPlaceholder;
 const TEAM_IMAGE = 'https://www.caffebacco.at/.cm4all/uproc.php/0/.WhatsApp%20Image%202024-07-08%20at%2018.29.19%20(11).jpeg/picture-2600?_=190c56695e8';
 
 // ============================================
