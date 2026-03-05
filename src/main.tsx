@@ -15,6 +15,7 @@ const DesignV6 = lazy(() => import('./designs/v6/DesignV6.tsx'))
 const DesignV7 = lazy(() => import('./designs/v7/DesignV7.tsx'))
 const DesignV8 = lazy(() => import('./designs/v8/DesignV8.tsx'))
 const DesignV9 = lazy(() => import('./designs/v9/DesignV9.tsx'))
+const DesignV10 = lazy(() => import('./designs/v10/DesignV10.tsx'))
 
 function getDesignParam(): string {
   const params = new URLSearchParams(window.location.search)
@@ -42,6 +43,8 @@ function DesignRouter() {
         return <DesignV8 />
       case 'v9':
         return <DesignV9 />
+      case 'v10':
+        return <DesignV10 />
       default:
         return <App />
     }

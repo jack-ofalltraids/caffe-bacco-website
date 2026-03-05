@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Palette, X, ChevronRight, ChevronLeft, ChevronsLeftRight } from 'lucide-react';
+import { X, ChevronRight, ChevronLeft, ChevronsLeftRight } from 'lucide-react';
 
 const DESIGNS = [
     { id: 'v1', label: 'V1 – Classica', description: 'Original warm parchment', color: '#7C1C23' },
@@ -11,6 +11,7 @@ const DESIGNS = [
     { id: 'v7', label: 'V7 – Ceramica', description: 'Cobalt blue, arches & circles', color: '#2B5A8C' },
     { id: 'v8', label: 'V8 – Piazza', description: 'Architectural arches & mosaic', color: '#A0522D' },
     { id: 'v9', label: 'V9 – Giardino', description: 'Organic blobs & garden curves', color: '#6B7F5E' },
+    { id: 'v10', label: 'V10 – Showcase', description: 'Interactive features demo', color: '#8B2500' },
 ];
 
 function getCurrentDesign(): string {
