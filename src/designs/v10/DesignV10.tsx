@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import { MapPin, Phone, CalendarDays, ArrowRight, ArrowUp, ChevronLeft, ChevronRight, X, Plus, Sun, Moon, Send, Mail } from 'lucide-react';
+import { MapPin, Phone, CalendarDays, ArrowRight, ArrowUp, ChevronLeft, ChevronRight, X, Plus, Sun, Moon, Send } from 'lucide-react';
 import { ReservationModal } from '../../components/ReservationModal';
 import './v10.css';
 gsap.registerPlugin(ScrollTrigger);
