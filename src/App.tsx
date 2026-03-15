@@ -11,18 +11,18 @@ gsap.registerPlugin(ScrollTrigger);
 // ── Brand Assets
 import logoText from './assets/brand/logo-text.png';
 import menuCard from './assets/brand/menu-card.png';
-import baccoIllustration from './assets/brand/bacco-illustration.jpg';
+import baccoIllustration from './assets/brand/bacco-illustration-round.png';
 
-// ── Team Photos
-import minoStefanie from './assets/team/mino-stefanie.jpg';
-import teamFull from './assets/team/team-full.jpg';
+// ── Team Photos (crossfade carousel)
+import teamTrio from './assets/team/trio.jpg';
+import teamAll from './assets/team/team-all.jpg';
+import teamCouple from './assets/team/couple.jpg';
 
 // ── Placeholder images (replace with real photos later)
 import heroPlaceholder from './assets/placeholders/hero.jpg';
 import foodPlaceholder from './assets/placeholders/food.jpg';
 import locationPlaceholder from './assets/placeholders/location.jpg';
 import gallery1 from './assets/placeholders/gallery-1.jpg';
-import gallery2 from './assets/placeholders/gallery-2.jpg';
 import gallery3 from './assets/placeholders/gallery-3.jpg';
 import gallery4 from './assets/placeholders/gallery-4.jpg';
 
@@ -108,7 +108,7 @@ function Hero({ onOpenReservation }: { onOpenReservation: () => void }) {
             <div className="cb-hero-inner">
                 {/* Overline */}
                 <div className="cb-hero-overline cb-label" style={{ opacity: 0 }}>
-                    Wien IV · Seit 2002
+                    Wien 1040 · Seit 2002
                 </div>
 
                 {/* Title */}
@@ -139,10 +139,10 @@ function Hero({ onOpenReservation }: { onOpenReservation: () => void }) {
                 {/* Image strip */}
                 <div className="cb-hero-image-strip" style={{ opacity: 0 }}>
                     <div className="cb-hero-image-strip-item">
-                        <img src={HERO_IMAGE} alt="Caffe Bacco – Eingang" />
+                        <img src={FOOD_IMAGE} alt="Frische Küche" />
                     </div>
                     <div className="cb-hero-image-strip-item">
-                        <img src={FOOD_IMAGE} alt="Frische Küche" />
+                        <img src={HERO_IMAGE} alt="Caffe Bacco – Genuss" />
                     </div>
                 </div>
             </div>
@@ -151,80 +151,81 @@ function Hero({ onOpenReservation }: { onOpenReservation: () => void }) {
 }
 
 // ============================================
-// FILOSOFIA – with Bacco illustration + menu card
+// FILOSOFIA – Restructured with visual rhythm
 // ============================================
 function Filosofia() {
     const sectionRef = useRef<HTMLElement>(null);
     useScrollReveal(sectionRef);
 
     return (
-        <section ref={sectionRef} id="filosofia" className="cb-section" style={{ scrollMarginTop: '5rem' }}>
-            <div className="cb-section-numbered">
-                <div className="cb-number cb-reveal">01</div>
+        <section ref={sectionRef} id="filosofia" className="cb-filosofia" style={{ scrollMarginTop: '5rem' }}>
+            {/* Section intro */}
+            <div className="cb-filosofia-header cb-reveal">
+                <div className="cb-number">01</div>
                 <div>
-                    <span className="cb-label cb-reveal" style={{ display: 'block', marginBottom: '1rem' }}>
+                    <span className="cb-label" style={{ display: 'block', marginBottom: '0.75rem' }}>
                         La Filosofia
                     </span>
-                    <h2 className="cb-section-title cb-display cb-reveal">
+                    <h2 className="cb-section-title cb-display">
                         Unsere <span className="cb-serif">Küche</span>
                     </h2>
+                </div>
+            </div>
 
-                    {/* Bacco Illustration + Intro Text side by side */}
-                    <div className="cb-filosofia-intro cb-reveal">
-                        <div className="cb-filosofia-illustration">
-                            <img src={baccoIllustration} alt="Bacco – der Gott des Weines" />
-                        </div>
-                        <div className="cb-filosofia-text">
-                            <p className="cb-body">
-                                Wir erfreuen unsere Gäste nun schon seit 2002 mit typisch toskanischer Küche,
-                                kochen mit hochqualitativen und manchmal auch selten gewordenen Produkten und
-                                orientieren uns gerne daran was die Natur saisonal für uns bereit hält!
-                            </p>
-                            <p className="cb-body" style={{ marginTop: '1rem' }}>
-                                Unser Konzept bedient sich nicht der klassischen „à la Carte" Gastronomie –
-                                wir arbeiten nach dem „Sharing Prinzip" und laden unsere Gäste so auf eine
-                                kulinarische Reise ein!
-                            </p>
-                        </div>
+            {/* Illustration + Text */}
+            <div className="cb-filosofia-intro cb-reveal">
+                <div className="cb-filosofia-illustration">
+                    <img src={baccoIllustration} alt="Bacco – der Gott des Weines" />
+                </div>
+                <div>
+                    <p className="cb-body">
+                        Wir erfreuen unsere Gäste nun schon seit 2002 mit typisch toskanischer Küche,
+                        kochen mit hochqualitativen und manchmal auch selten gewordenen Produkten und
+                        orientieren uns gerne daran was die Natur saisonal für uns bereit hält!
+                    </p>
+                    <p className="cb-body" style={{ marginTop: '1rem' }}>
+                        Unser Konzept bedient sich nicht der klassischen „à la Carte" Gastronomie –
+                        wir arbeiten nach dem „Sharing Prinzip" und laden unsere Gäste so auf eine
+                        kulinarische Reise ein!
+                    </p>
+                </div>
+            </div>
+
+            {/* Menu Card (left) + Hours & Highlights (right) */}
+            <div className="cb-filosofia-content cb-reveal">
+                <div className="cb-menu-card-wrapper">
+                    <div className="cb-menu-card">
+                        <img src={menuCard} alt="Caffe Bacco Menü – EUR 65,– pP" />
                     </div>
+                </div>
 
-                    {/* Menu Card – centered, polished */}
-                    <div className="cb-menu-card-wrapper cb-reveal">
-                        <div className="cb-menu-card">
-                            <img src={menuCard} alt="Caffe Bacco Menü – Antipasto, Primi Piatti, Secondo Piatto, Dolci Misti – EUR 65,– pP" />
-                        </div>
-                    </div>
-
-                    {/* Opening hours in context */}
-                    <div className="cb-filosofia-hours cb-reveal">
-                        <p>
+                <div className="cb-filosofia-details">
+                    <div className="cb-detail-block">
+                        <h3 className="cb-detail-title">Öffnungszeiten</h3>
+                        <p className="cb-detail-text">
                             Wir kochen immer von <strong>Montag bis Freitag</strong><br />
                             von <strong>12:00 – 21:30</strong> für Sie,<br />
                             das Lokal heißt Sie gerne bis 24 Uhr willkommen!
                         </p>
-                        <p style={{ marginTop: '0.75rem' }}>
+                        <p className="cb-detail-text" style={{ marginTop: '0.75rem' }}>
                             Auf spezielle Anfrage hin bewirten wir gerne <strong>samstags</strong> oder{' '}
                             <strong>feiertags</strong> Gruppen ab 20 Personen bei uns!
                         </p>
                     </div>
 
-                    {/* Kulinarische Besonderheiten */}
-                    <div className="cb-highlights cb-reveal">
-                        <h3 className="cb-highlights-title">Kulinarische Besonderheiten</h3>
-
-                        <div className="cb-highlight-item">
+                    <div className="cb-detail-block">
+                        <h3 className="cb-detail-title">Kulinarische Besonderheiten</h3>
+                        <p className="cb-detail-text">
                             <strong>Dienstag</strong> ist unser allseits beliebter Muscheltag –
                             wir servieren verschiedene Gerichte mit Mies- oder Venusmuscheln!
-                        </div>
-
-                        <div className="cb-highlight-item">
+                        </p>
+                        <p className="cb-detail-text">
                             Unsere <strong>Bistecca Fiorentina</strong> können Sie jeden Tag bei uns genießen!
-                        </div>
-
-                        <div className="cb-highlight-item">
+                        </p>
+                        <p className="cb-detail-text">
                             Der weißen Trüffelsaison (ca. Okt. – Dez.) huldigen wir mit einem speziellen
                             Trüffelmenü – über schwarzen Trüffel können Sie sich ganzjährig freuen!
-                        </div>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -244,7 +245,7 @@ function Divider() {
 }
 
 // ============================================
-// GALLERY – Grid, subtle color
+// GALLERY – Grid, subtle color (5 images incl. location)
 // ============================================
 function Gallery() {
     const sectionRef = useRef<HTMLElement>(null);
@@ -257,13 +258,13 @@ function Gallery() {
                     <img src={gallery1} alt="Wein" />
                 </div>
                 <div className="cb-gallery-item">
-                    <img src={gallery2} alt="Antipasti" />
-                </div>
-                <div className="cb-gallery-item">
                     <img src={gallery3} alt="Handwerk" />
                 </div>
                 <div className="cb-gallery-item">
                     <img src={gallery4} alt="Gedeckter Tisch" />
+                </div>
+                <div className="cb-gallery-item">
+                    <img src={LOCATION_IMAGE} alt="Das Caffe Bacco – Außenansicht" />
                 </div>
             </div>
         </section>
@@ -271,19 +272,33 @@ function Gallery() {
 }
 
 // ============================================
-// CHI SIAMO – Team section with couple + team photos
+// CHI SIAMO – Team section with crossfade carousel
 // ============================================
+const TEAM_IMAGES = [
+    { src: teamTrio, alt: 'Stefanie, Tibor & Mino – das Herzstück des Caffe Bacco', position: 'center 60%' },
+    { src: teamAll, alt: 'Das gesamte Bacco Team', position: 'center 15%' },
+    { src: teamCouple, alt: 'Mino & Stefanie – die Gastgeber', position: 'center center' },
+];
+
 function ChiSiamo() {
     const sectionRef = useRef<HTMLElement>(null);
+    const [activeIndex, setActiveIndex] = useState(0);
     useScrollReveal(sectionRef);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setActiveIndex((prev) => (prev + 1) % TEAM_IMAGES.length);
+        }, 4000);
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <section ref={sectionRef} id="chi-siamo" className="cb-team" style={{ scrollMarginTop: '5rem' }}>
             {/* Section header */}
             <div className="cb-team-header">
-                <div className="cb-number cb-reveal" style={{ fontSize: '5rem' }}>02</div>
+                <div className="cb-number cb-reveal">02</div>
                 <div>
-                    <span className="cb-label cb-reveal" style={{ display: 'block', marginBottom: '1rem' }}>
+                    <span className="cb-label cb-reveal" style={{ display: 'block', marginBottom: '0.75rem' }}>
                         Chi Siamo
                     </span>
                     <h2 className="cb-team-title cb-display cb-reveal">
@@ -292,10 +307,29 @@ function ChiSiamo() {
                 </div>
             </div>
 
-            {/* Couple photo + text */}
+            {/* Crossfade carousel + text */}
             <div className="cb-team-inner">
-                <div className="cb-team-image cb-reveal">
-                    <img src={minoStefanie} alt="Mino & Stefanie – die Gastgeber des Caffe Bacco" />
+                <div className="cb-team-carousel cb-reveal">
+                    {TEAM_IMAGES.map((img, i) => (
+                        <img
+                            key={i}
+                            src={img.src}
+                            alt={img.alt}
+                            className={`cb-team-carousel-img ${i === activeIndex ? 'active' : ''}`}
+                            style={{ objectPosition: img.position }}
+                        />
+                    ))}
+                    {/* Dot indicators */}
+                    <div className="cb-team-dots">
+                        {TEAM_IMAGES.map((_, i) => (
+                            <button
+                                key={i}
+                                className={`cb-team-dot ${i === activeIndex ? 'active' : ''}`}
+                                onClick={() => setActiveIndex(i)}
+                                aria-label={`Bild ${i + 1}`}
+                            />
+                        ))}
+                    </div>
                 </div>
                 <div className="cb-team-text">
                     <p className="cb-body cb-reveal">
@@ -322,31 +356,11 @@ function ChiSiamo() {
                     </p>
                 </div>
             </div>
-
-            {/* Full team photo */}
-            <div className="cb-team-group cb-reveal">
-                <img src={teamFull} alt="Das gesamte Bacco Team" />
-                <p className="cb-team-group-caption">Unser Team – gemeinsam für Sie da.</p>
-            </div>
         </section>
     );
 }
 
-// ============================================
-// LOCATION – Full-bleed image
-// ============================================
-function Location() {
-    const sectionRef = useRef<HTMLElement>(null);
-    useScrollReveal(sectionRef);
 
-    return (
-        <section ref={sectionRef} className="cb-location">
-            <div className="cb-location-image cb-reveal">
-                <img src={LOCATION_IMAGE} alt="Das Caffe Bacco" />
-            </div>
-        </section>
-    );
-}
 
 // ============================================
 // FOOTER – with prominent cash-only badge
@@ -492,10 +506,9 @@ function App() {
                 <Hero onOpenReservation={handleOpen} />
                 <Divider />
                 <Filosofia />
-                <Gallery />
                 <Divider />
                 <ChiSiamo />
-                <Location />
+                <Gallery />
             </main>
             <Footer />
 

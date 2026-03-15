@@ -26,7 +26,7 @@
     --cb-font-serif: 'Instrument Serif', 'Georgia', serif;
     --cb-font-body: 'Space Grotesk', system-ui, sans-serif;
 
-    --cb-section-gap: clamp(5rem, 10vw, 8rem);
+    --cb-section-gap: clamp(2.5rem, 6vw, 4rem);
     --cb-max-w: 1080px;
 }
 
@@ -89,7 +89,7 @@
     font-size: 7rem;
     line-height: 1;
     color: var(--cb-primary);
-    opacity: 0.1;
+    opacity: 0.5;
     letter-spacing: -0.04em;
 }
 
@@ -119,7 +119,13 @@
     padding: 0 clamp(1.25rem, 4vw, 2.5rem);
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+}
+
+@media (min-width: 768px) {
+    .cb-header-inner {
+        justify-content: space-between;
+    }
 }
 
 .cb-logo {
@@ -220,7 +226,7 @@
     min-height: 100dvh;
     display: flex;
     align-items: center;
-    padding: 7rem 0 4rem;
+    padding: clamp(4rem, 10vw, 7rem) 0 4rem;
 }
 
 .cb-hero-inner {
@@ -234,7 +240,7 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: clamp(1.25rem, 3vw, 2.5rem);
 }
 
 .cb-hero-overline::after {
@@ -276,174 +282,198 @@
 }
 
 .cb-hero-image-strip {
-    margin-top: 3rem;
+    margin-top: clamp(1.5rem, 4vw, 3rem);
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 3px;
+    grid-template-columns: 1fr;
+    gap: 6px;
     max-width: var(--cb-max-w);
+}
+
+@media (min-width: 768px) {
+    .cb-hero-image-strip {
+        grid-template-columns: 2fr 1fr;
+        gap: 3px;
+    }
 }
 
 .cb-hero-image-strip-item {
     overflow: hidden;
-    aspect-ratio: 16/9;
+    aspect-ratio: 4/3;
+}
+
+@media (min-width: 768px) {
+    .cb-hero-image-strip-item {
+        aspect-ratio: 16/9;
+    }
 }
 
 .cb-hero-image-strip-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: grayscale(0.4) contrast(1.05);
-    transition: filter 0.6s ease;
 }
 
 .cb-hero-image-strip-item:hover img {
-    filter: grayscale(0);
+    filter: none;
 }
 
 /* ============================================
-   SECTION – Filosofia (numbered)
+   SECTION – Filosofia
    ============================================ */
-.cb-section {
+.cb-filosofia {
     padding: var(--cb-section-gap) clamp(1.25rem, 4vw, 2.5rem);
     max-width: var(--cb-max-w);
     margin: 0 auto;
 }
 
-.cb-section-numbered {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: clamp(2rem, 4vw, 4rem);
-    align-items: start;
+.cb-filosofia-header {
+    display: flex;
+    align-items: flex-end;
+    gap: clamp(1rem, 3vw, 2.5rem);
+    margin-bottom: var(--cb-section-gap);
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--cb-ink-08);
 }
 
-@media (max-width: 767px) {
-    .cb-section-numbered {
-        grid-template-columns: 1fr;
-    }
-
-    .cb-number {
-        font-size: 4rem;
-    }
+.cb-filosofia-header .cb-number {
+    font-size: clamp(5rem, 15vw, 7rem);
+    line-height: 0.8;
 }
 
 .cb-section-title {
-    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
-    margin-bottom: 1.25rem;
+    font-size: clamp(2.25rem, 6vw, 2.75rem);
+    margin-bottom: 0;
     letter-spacing: -0.02em;
 }
 
-/* Filosofia Intro – Illustration + Text side by side */
+/* Illustration + Text side by side */
 .cb-filosofia-intro {
     display: grid;
     grid-template-columns: 1fr;
     gap: 2rem;
     align-items: start;
-    margin-bottom: 2rem;
+    margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
 }
 
 @media (min-width: 768px) {
     .cb-filosofia-intro {
-        grid-template-columns: 200px 1fr;
+        grid-template-columns: 220px 1fr;
         gap: 2.5rem;
     }
 }
 
 .cb-filosofia-illustration {
-    max-width: 200px;
+    width: clamp(200px, 55vw, 240px);
+    height: clamp(200px, 55vw, 240px);
     margin: 0 auto;
+    flex-shrink: 0;
 }
 
 @media (min-width: 768px) {
     .cb-filosofia-illustration {
         margin: 0;
+        width: 220px;
+        height: 220px;
+        position: sticky;
+        top: 6rem;
     }
 }
 
 .cb-filosofia-illustration img {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
-    border-radius: 4px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--cb-primary);
+    box-shadow: 0 0 0 3px var(--cb-bg), 0 0 0 5px rgba(124, 28, 35, 0.2), 0 6px 24px rgba(26, 20, 18, 0.1);
 }
 
-/* Menu Card – centered, polished, edges clipped */
+/* Menu + Details – side by side on desktop */
+.cb-filosofia-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(2rem, 4vw, 3rem);
+    align-items: start;
+}
+
+@media (min-width: 768px) {
+    .cb-filosofia-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+    }
+}
+
+/* Menu Card */
 .cb-menu-card-wrapper {
     display: flex;
     justify-content: center;
-    margin: 2.5rem 0;
+    align-items: flex-start;
 }
 
 .cb-menu-card {
-    max-width: 420px;
     width: 100%;
-    background: var(--cb-white);
-    border-radius: 4px;
+    max-width: 400px;
     overflow: hidden;
-    box-shadow: 0 8px 40px rgba(26, 20, 18, 0.08), 0 2px 12px rgba(26, 20, 18, 0.04);
+    box-shadow: 0 2px 20px rgba(26, 20, 18, 0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    /* Clip the black edge artifacts from the PNG */
-    padding: 4px;
 }
 
 .cb-menu-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 50px rgba(26, 20, 18, 0.12), 0 4px 16px rgba(26, 20, 18, 0.06);
+    box-shadow: 0 6px 30px rgba(26, 20, 18, 0.12);
 }
 
 .cb-menu-card img {
     width: 100%;
     height: auto;
     display: block;
-    border-radius: 2px;
+    /* Scale up slightly to crop black edges evenly from all sides */
+    transform: scale(1.03);
+    /* Matte cream warmth matching bg-alt tone */
+    filter: sepia(0.12) saturate(0.95) brightness(0.98);
 }
 
-/* Filosofia hours block */
-.cb-filosofia-hours {
-    margin-top: 1.5rem;
+/* Details column – hours + highlights stacked */
+.cb-filosofia-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.cb-detail-block {
     padding: 1.25rem 1.5rem;
     background: var(--cb-bg-alt);
     border-left: 3px solid var(--cb-primary);
-    font-size: 0.9375rem;
-    line-height: 1.75;
-    color: var(--cb-ink-70);
+    border-radius: 0 6px 6px 0;
 }
 
-.cb-filosofia-hours strong {
-    color: var(--cb-ink);
-    font-weight: 600;
-}
-
-/* Kulinarische Besonderheiten */
-.cb-highlights {
-    margin-top: 2rem;
-}
-
-.cb-highlights-title {
+.cb-detail-title {
     font-family: var(--cb-font-display);
     font-size: 0.6875rem;
     font-weight: 600;
     letter-spacing: 0.25em;
     text-transform: uppercase;
     color: var(--cb-primary);
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
 }
 
-.cb-highlight-item {
+.cb-detail-text {
     font-family: var(--cb-font-body);
     font-weight: 300;
     font-size: 0.9375rem;
     line-height: 1.75;
     color: var(--cb-ink-70);
-    padding: 0.5rem 0;
-    border-bottom: 1px solid var(--cb-ink-08);
 }
 
-.cb-highlight-item:last-child {
-    border-bottom: none;
+.cb-detail-text + .cb-detail-text {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--cb-ink-08);
 }
 
-.cb-highlight-item strong {
-    color: var(--cb-primary);
+.cb-detail-text strong {
+    color: var(--cb-ink);
     font-weight: 600;
 }
 
@@ -473,18 +503,25 @@
 .cb-gallery-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 3px;
+    grid-template-rows: auto auto;
+    gap: 6px;
+    border-radius: 6px;
+    overflow: hidden;
 }
 
 @media (min-width: 768px) {
     .cb-gallery-grid {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: 2fr 1fr 1fr;
+        grid-template-rows: 280px 280px;
+    }
+
+    .cb-gallery-item:first-child {
+        grid-row: 1 / 3;
     }
 }
 
 .cb-gallery-item {
     overflow: hidden;
-    aspect-ratio: 1;
     position: relative;
 }
 
@@ -501,14 +538,6 @@
     transform: scale(1.04);
 }
 
-.cb-gallery-item::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border: 1px solid var(--cb-ink-08);
-    pointer-events: none;
-}
-
 /* ============================================
    TEAM – Chi Siamo
    ============================================ */
@@ -519,17 +548,17 @@
 }
 
 .cb-team-header {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: clamp(2rem, 4vw, 4rem);
-    align-items: start;
-    margin-bottom: 3rem;
+    display: flex;
+    align-items: flex-end;
+    gap: clamp(1rem, 3vw, 2.5rem);
+    margin-bottom: var(--cb-section-gap);
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--cb-ink-08);
 }
 
-@media (max-width: 767px) {
-    .cb-team-header {
-        grid-template-columns: 1fr;
-    }
+.cb-team-header .cb-number {
+    font-size: clamp(5rem, 15vw, 7rem) !important;
+    line-height: 0.8;
 }
 
 .cb-team-inner {
@@ -546,21 +575,60 @@
     }
 }
 
-.cb-team-image {
+/* Team photo crossfade carousel */
+.cb-team-carousel {
+    position: relative;
     overflow: hidden;
-    aspect-ratio: 4/5;
+    aspect-ratio: 3/4;
     border-radius: 4px;
+    background: var(--cb-ink-04);
 }
 
-.cb-team-image img {
+.cb-team-carousel-img {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: filter 0.5s ease;
+    opacity: 0;
+    transition: opacity 0.8s ease;
 }
 
-.cb-team-image:hover img {
-    filter: brightness(1.05);
+.cb-team-carousel-img.active {
+    opacity: 1;
+}
+
+/* Dot indicators */
+.cb-team-dots {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem;
+    z-index: 2;
+}
+
+.cb-team-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1.5px solid var(--cb-white);
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.3s ease;
+    opacity: 0.6;
+}
+
+.cb-team-dot.active {
+    background: var(--cb-white);
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+.cb-team-dot:hover {
+    opacity: 1;
 }
 
 .cb-team-text {
@@ -574,8 +642,8 @@
 }
 
 .cb-team-title {
-    font-size: clamp(1.5rem, 3vw, 2.25rem);
-    margin-bottom: 1.25rem;
+    font-size: clamp(2.25rem, 6vw, 2.75rem);
+    margin-bottom: 0;
     letter-spacing: -0.02em;
 }
 
@@ -586,35 +654,6 @@
     line-height: 1.6;
     margin-top: 1.5rem;
     color: var(--cb-primary);
-}
-
-/* Full team group photo */
-.cb-team-group {
-    margin-top: 3rem;
-    overflow: hidden;
-    border-radius: 4px;
-}
-
-.cb-team-group img {
-    width: 100%;
-    height: auto;
-    display: block;
-    aspect-ratio: 16/10;
-    object-fit: cover;
-    transition: filter 0.5s ease;
-}
-
-.cb-team-group:hover img {
-    filter: brightness(1.05);
-}
-
-.cb-team-group-caption {
-    text-align: center;
-    margin-top: 0.75rem;
-    font-family: var(--cb-font-serif);
-    font-style: italic;
-    font-size: 0.875rem;
-    color: var(--cb-ink-40);
 }
 
 /* ============================================
