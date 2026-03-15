@@ -2,486 +2,482 @@ import { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import { MapPin, Clock, Phone, AlertCircle } from 'lucide-react';
+import { MapPin, Clock, Phone, AlertCircle, CalendarDays, ArrowRight } from 'lucide-react';
 import { ReservationModal } from './components/ReservationModal';
-import { MobileActionBar } from './components/MobileActionBar';
+import './app.css';
 
-// Fresco images
-import headerFresco from './assets/frescos/header-fresco.png';
-import filosofiaFresco from './assets/frescos/filosofia-fresco.png';
-
-// Placeholder images (replace with real photos later)
-import heroPlaceholder from './assets/placeholders/hero.jpg';
-
-// Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
-// Image URLs
+// ── Brand Assets
+import logoText from './assets/brand/logo-text.png';
+import menuCard from './assets/brand/menu-card.png';
+
+// ── Placeholder images (replace with real photos later)
+import heroPlaceholder from './assets/placeholders/hero.jpg';
+import foodPlaceholder from './assets/placeholders/food.jpg';
+import locationPlaceholder from './assets/placeholders/location.jpg';
+import gallery1 from './assets/placeholders/gallery-1.jpg';
+import gallery2 from './assets/placeholders/gallery-2.jpg';
+import gallery3 from './assets/placeholders/gallery-3.jpg';
+import gallery4 from './assets/placeholders/gallery-4.jpg';
+
 const HERO_IMAGE = heroPlaceholder;
 const TEAM_IMAGE = 'https://www.caffebacco.at/.cm4all/uproc.php/0/.WhatsApp%20Image%202024-07-08%20at%2018.29.19%20(11).jpeg/picture-2600?_=190c56695e8';
+const FOOD_IMAGE = foodPlaceholder;
+const LOCATION_IMAGE = locationPlaceholder;
+const GOOGLE_MAPS_URL = 'https://www.google.com/maps?daddr=Margaretenstra%C3%9Fe+25,+1040+Wien';
 
 // ============================================
-// HEADER COMPONENT
+// SCROLL REVEAL HOOK
 // ============================================
-function Header() {
-  const [scrolled, setScrolled] = useState(false);
-  const headerRef = useRef<HTMLElement>(null);
+function useScrollReveal(ref: React.RefObject<HTMLElement | null>) {
+    useGSAP(() => {
+        if (!ref.current) return;
+        ref.current.querySelectorAll('.cb-reveal').forEach((el) => {
+            gsap.fromTo(el,
+                { autoAlpha: 0, y: 20 },
+                {
+                    autoAlpha: 1, y: 0, duration: 0.7, ease: 'power2.out',
+                    scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
+                }
+            );
+        });
+    }, { scope: ref });
+}
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+// ============================================
+// HEADER – Logo image instead of text
+// ============================================
+function Header({ onOpenReservation }: { onOpenReservation: () => void }) {
+    const [scrolled, setScrolled] = useState(false);
+    const headerRef = useRef<HTMLElement>(null);
 
-  useGSAP(() => {
-    gsap.fromTo(
-      headerRef.current,
-      { autoAlpha: 0, y: -20 },
-      { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power2.out' }
+    useEffect(() => {
+        const handleScroll = () => setScrolled(window.scrollY > 50);
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    useGSAP(() => {
+        gsap.fromTo(headerRef.current,
+            { autoAlpha: 0 },
+            { autoAlpha: 1, duration: 0.6, delay: 0.1, ease: 'power2.out' }
+        );
+    }, { scope: headerRef });
+
+    return (
+        <header ref={headerRef} className={`cb-header ${scrolled ? 'scrolled' : ''}`} style={{ opacity: 0 }}>
+            <div className="cb-header-inner">
+                <a href="#" className="cb-logo">
+                    <img src={logoText} alt="Caffe Bacco Trattoria" className="cb-logo-img" />
+                </a>
+
+                <nav className="cb-nav">
+                    <a href="#filosofia" className="cb-nav-link">Filosofia</a>
+                    <a href="#chi-siamo" className="cb-nav-link">Chi Siamo</a>
+                    <a href="#kontakt" className="cb-nav-link">Kontakt</a>
+                    <button onClick={onOpenReservation} className="cb-btn-primary" style={{ padding: '0.6rem 1.25rem' }}>
+                        Reservieren
+                    </button>
+                </nav>
+            </div>
+        </header>
     );
-  }, { scope: headerRef });
-
-  return (
-    <header
-      ref={headerRef}
-      className={`fixed top-0 left-0 right-0 z-50 py-4 transition-all duration-300 opacity-0 ${scrolled
-        ? 'bg-parchment/95 backdrop-blur-sm shadow-bacco'
-        : 'bg-transparent'
-        }`}
-    >
-      <div className="container mx-auto px-4 text-center">
-        {/* Header Fresco */}
-        <img
-          src={headerFresco}
-          alt=""
-          className="h-3 md:h-4 w-auto mx-auto mb-1 opacity-60"
-          aria-hidden="true"
-        />
-        <h1 className="font-heading text-3xl md:text-4xl font-bold text-primary">
-          Caffe Bacco
-        </h1>
-        <span className="block text-xs tracking-[0.3em] uppercase text-gold font-body font-light mt-1">
-          Wien 1040
-        </span>
-      </div>
-    </header>
-  );
 }
 
 // ============================================
-// HERO SECTION COMPONENT
+// HERO – Giant typography with brand accents
 // ============================================
-interface HeroSectionProps {
-  onOpenReservation: () => void;
-}
+function Hero({ onOpenReservation }: { onOpenReservation: () => void }) {
+    const sectionRef = useRef<HTMLElement>(null);
 
-function HeroSection({ onOpenReservation }: HeroSectionProps) {
-  const sectionRef = useRef<HTMLElement>(null);
-  const sublineRef = useRef<HTMLSpanElement>(null);
-  const headlineRef = useRef<HTMLHeadingElement>(null);
-  const bodyRef = useRef<HTMLParagraphElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const imageContainerRef = useRef<HTMLDivElement>(null);
+    useGSAP(() => {
+        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+        tl.fromTo('.cb-hero-overline', { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, duration: 0.6 }, 0.2)
+            .fromTo('.cb-hero-title', { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 1 }, 0.3)
+            .fromTo('.cb-hero-bottom', { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.7 }, 0.6)
+            .fromTo('.cb-hero-image-strip', { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.9 }, 0.5);
+    }, { scope: sectionRef });
 
-  useGSAP(() => {
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    return (
+        <section ref={sectionRef} className="cb-hero">
+            <div className="cb-hero-inner">
+                {/* Overline */}
+                <div className="cb-hero-overline cb-label" style={{ opacity: 0 }}>
+                    Wien IV · Seit 2002
+                </div>
 
-    // Set initial states
-    gsap.set([sublineRef.current, headlineRef.current, bodyRef.current, buttonRef.current], {
-      autoAlpha: 0,
-      y: 30,
-    });
-    gsap.set(imageContainerRef.current, {
-      autoAlpha: 0,
-      y: 50,
-    });
+                {/* Title */}
+                <h1 className="cb-hero-title cb-display" style={{ opacity: 0 }}>
+                    Benvenuti alla<br />
+                    nostra <span className="cb-serif">Trattoria</span><br />
+                    Caffe Bacco!
+                </h1>
 
-    // Orchestrated entrance sequence
-    tl.to(sublineRef.current, { autoAlpha: 1, y: 0, duration: 0.7 }, 0.1)
-      .to(headlineRef.current, { autoAlpha: 1, y: 0, duration: 0.7 }, 0.2)
-      .to(bodyRef.current, { autoAlpha: 1, y: 0, duration: 0.7 }, 0.3)
-      .to(buttonRef.current, { autoAlpha: 1, y: 0, duration: 0.6, ease: 'back.out(1.4)' }, 0.45)
-      .to(imageContainerRef.current, { autoAlpha: 1, y: 0, duration: 1.2, ease: 'power3.out' }, 0.2);
-  }, { scope: sectionRef });
+                {/* Bottom row */}
+                <div className="cb-hero-bottom" style={{ opacity: 0 }}>
+                    <p className="cb-hero-desc cb-body">
+                        „Wir servieren nur, was wir auch unseren besten Freunden
+                        vorsetzen würden."
+                    </p>
 
-  return (
-    <section ref={sectionRef} className="pt-36 pb-12 md:pt-44 md:pb-16 px-4">
-      <div className="container mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          {/* Left Content */}
-          <div className="order-2 lg:order-1">
-            <span
-              ref={sublineRef}
-              className="inline-block text-sm tracking-[0.25em] uppercase text-gold font-body font-light mb-4 opacity-0"
-            >
-              Benvenuti in Famiglia
-            </span>
+                    <div className="cb-hero-actions">
+                        <button onClick={onOpenReservation} className="cb-btn-primary">
+                            Reservieren
+                            <ArrowRight size={14} />
+                        </button>
+                        <a href="#filosofia" className="cb-btn-ghost">
+                            Erfahre mehr
+                        </a>
+                    </div>
+                </div>
 
-            <h2
-              ref={headlineRef}
-              className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight mb-6 opacity-0"
-            >
-              Autentica Cucina Toscana.
-              <br />
-              <span className="text-espresso">Come a casa.</span>
-            </h2>
-
-            <p
-              ref={bodyRef}
-              className="text-base md:text-lg lg:text-xl text-espresso/80 leading-relaxed mb-8 max-w-xl opacity-0"
-            >
-              Bei uns gibt es keine Speisekarte – nur das Beste, was Markt und
-              Saison heute hergeben. Mino & sein Team kochen mit Leidenschaft
-              und servieren dir Authentizität. Seit 2002.
-            </p>
-
-            <div className="flex flex-wrap items-center gap-4">
-              <button
-                ref={buttonRef}
-                onClick={onOpenReservation}
-                className="inline-block bg-primary text-white font-body font-semibold px-8 py-4 rounded-lg shadow-bacco opacity-0
-                           transition-all duration-300 ease-out
-                           hover:scale-[1.02] hover:-translate-y-1 hover:shadow-bacco-lg hover:bg-[#63161c]
-                           active:scale-[0.98]"
-              >
-                Reservieren
-              </button>
-              <a
-                href="#filosofia"
-                className="inline-block text-primary font-body font-medium px-4 py-4
-                           transition-all duration-300 ease-out
-                           hover:text-gold"
-              >
-                Mehr erfahren →
-              </a>
+                {/* Image strip */}
+                <div className="cb-hero-image-strip" style={{ opacity: 0 }}>
+                    <div className="cb-hero-image-strip-item">
+                        <img src={HERO_IMAGE} alt="Caffe Bacco – Eingang" />
+                    </div>
+                    <div className="cb-hero-image-strip-item">
+                        <img src={FOOD_IMAGE} alt="Frische Küche" />
+                    </div>
+                </div>
             </div>
-          </div>
-
-          {/* Right Content - Hero Image */}
-          <div ref={imageContainerRef} className="order-1 lg:order-2 opacity-0">
-            <div className="relative group overflow-hidden rounded-lg shadow-bacco-lg">
-              <img
-                src={HERO_IMAGE}
-                alt="Mino präsentiert erstklassiges Fleisch und Wein"
-                className="w-full h-auto object-cover aspect-[4/3]
-                           transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]
-                           group-hover:scale-105"
-              />
-            </div>
-            {/* Subtle decorative element */}
-            <div className="absolute -bottom-3 -right-3 md:-bottom-4 md:-right-4 w-20 md:w-28 h-20 md:h-28 border-2 border-gold/30 rounded-lg -z-10" />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ============================================
-// CONCEPT SECTION COMPONENT ("La Filosofia")
-// ============================================
-function ConceptSection() {
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  useGSAP(() => {
-    gsap.fromTo(
-      cardRef.current,
-      { autoAlpha: 0, y: 50 },
-      {
-        autoAlpha: 1,
-        y: 0,
-        duration: 0.9,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: cardRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none none',
-        },
-      }
+        </section>
     );
-  }, { scope: cardRef });
-
-  return (
-    <section id="filosofia" className="py-12 md:py-16 px-4 scroll-mt-24 md:scroll-mt-28">
-      <div className="container mx-auto max-w-3xl">
-        <div
-          ref={cardRef}
-          className="concept-card bg-white rounded-lg shadow-bacco-card border-t-4 border-gold p-6 md:p-10 lg:p-12 opacity-0
-                     hover:-translate-y-2 transition-transform duration-500 ease-out"
-        >
-          {/* Fresco Icon */}
-          <div className="flex justify-center mb-6">
-            <img
-              src={filosofiaFresco}
-              alt=""
-              className="h-12 md:h-16 w-auto opacity-80"
-              aria-hidden="true"
-            />
-          </div>
-
-          {/* Headline */}
-          <h3 className="font-heading text-2xl md:text-3xl lg:text-4xl font-bold text-primary text-center mb-6">
-            La Filosofia di Bacco
-          </h3>
-
-          {/* Main Text */}
-          <p className="text-base md:text-lg text-espresso/80 text-center leading-relaxed mb-6">
-            Warum wir keine Karte haben? Weil Kochen Vertrauenssache ist. Mino
-            kommt an deinen Tisch und erzählt dir, was die Küche heute gezaubert
-            hat. Wir jagen keinen Trends hinterher, sondern der Qualität.
-          </p>
-
-          {/* Highlight Text */}
-          <p className="text-base md:text-lg lg:text-xl text-espresso font-medium text-center leading-relaxed mb-8 italic">
-            „Egal ob frische Trüffel, handverlesenes Gemüse oder der Fang des
-            Tages – wir servieren nur, was wir auch unseren besten Freunden
-            vorsetzen würden."
-          </p>
-
-          {/* Special Note */}
-          <div className="pt-6 border-t border-espresso/10">
-            <p className="text-center text-gold font-heading text-base md:text-lg font-semibold">
-              Dienstags-Highlight: Frische Miesmuscheln (12–17 Uhr)
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
 }
 
 // ============================================
-// TEAM SECTION COMPONENT ("Mino & Tibor")
+// FILOSOFIA – Full rewrite with menu card
 // ============================================
-function TeamSection() {
-  const textRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
+function Filosofia() {
+    const sectionRef = useRef<HTMLElement>(null);
+    useScrollReveal(sectionRef);
 
-  useGSAP(() => {
-    gsap.fromTo(
-      textRef.current,
-      { autoAlpha: 0, y: 50 },
-      {
-        autoAlpha: 1,
-        y: 0,
-        duration: 0.9,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: textRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none none',
-        },
-      }
+    return (
+        <section ref={sectionRef} id="filosofia" className="cb-section" style={{ scrollMarginTop: '5rem' }}>
+            <div className="cb-section-numbered">
+                <div className="cb-number cb-reveal">01</div>
+                <div>
+                    <span className="cb-label cb-reveal" style={{ display: 'block', marginBottom: '1rem' }}>
+                        La Filosofia
+                    </span>
+                    <h2 className="cb-section-title cb-display cb-reveal">
+                        Unsere <span className="cb-serif">Küche</span>
+                    </h2>
+                    <p className="cb-body cb-reveal">
+                        Wir erfreuen unsere Gäste nun schon seit 2002 mit typisch toskanischer Küche,
+                        kochen mit hochqualitativen und manchmal auch selten gewordenen Produkten und
+                        orientieren uns gerne daran was die Natur saisonal für uns bereit hält!
+                    </p>
+                    <p className="cb-body cb-reveal" style={{ marginTop: '1rem' }}>
+                        Unser Konzept bedient sich nicht der klassischen „à la Carte" Gastronomie –
+                        wir arbeiten nach dem „Sharing Prinzip" und laden unsere Gäste so auf eine
+                        kulinarische Reise ein!
+                    </p>
+
+                    {/* Menu Card */}
+                    <div className="cb-menu-card cb-reveal">
+                        <img src={menuCard} alt="Caffe Bacco Menü – Antipasto, Primi Piatti, Secondo Piatto, Dolci Misti – EUR 65,– pP" />
+                    </div>
+
+                    {/* Opening hours in context */}
+                    <div className="cb-filosofia-hours cb-reveal">
+                        <p>
+                            Wir kochen immer von <strong>Montag bis Freitag</strong><br />
+                            von <strong>12:00 – 21:30</strong> für Sie,<br />
+                            das Lokal heißt Sie gerne bis 24 Uhr willkommen!
+                        </p>
+                        <p style={{ marginTop: '0.75rem' }}>
+                            Auf spezielle Anfrage hin bewirten wir gerne <strong>samstags</strong> oder{' '}
+                            <strong>feiertags</strong> Gruppen ab 20 Personen bei uns!
+                        </p>
+                    </div>
+
+                    {/* Kulinarische Besonderheiten */}
+                    <div className="cb-highlights cb-reveal">
+                        <h3 className="cb-highlights-title">Kulinarische Besonderheiten</h3>
+
+                        <div className="cb-highlight-item">
+                            <strong>Dienstag</strong> ist unser allseits beliebter Muscheltag –
+                            wir servieren verschiedene Gerichte mit Mies- oder Venusmuscheln!
+                        </div>
+
+                        <div className="cb-highlight-item">
+                            Unsere <strong>Bistecca Fiorentina</strong> können Sie jeden Tag bei uns genießen!
+                        </div>
+
+                        <div className="cb-highlight-item">
+                            Der weißen Trüffelsaison (ca. Okt. – Dez.) huldigen wir mit einem speziellen
+                            Trüffelmenü – über schwarzen Trüffel können Sie sich ganzjährig freuen!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     );
+}
 
-    gsap.fromTo(
-      imageRef.current,
-      { autoAlpha: 0, y: 50 },
-      {
-        autoAlpha: 1,
-        y: 0,
-        duration: 0.9,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: imageRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none none',
-        },
-      }
+// ============================================
+// DIVIDER
+// ============================================
+function Divider() {
+    return (
+        <div className="cb-divider">
+            <div className="cb-divider-line" />
+        </div>
     );
-  });
-
-  return (
-    <section className="py-16 md:py-24 px-4 bg-white/50">
-      <div className="container mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          {/* Left Content - Text */}
-          <div ref={textRef} className="team-text opacity-0">
-            <span className="inline-block text-sm tracking-[0.25em] uppercase text-gold font-body font-light mb-4">
-              Handwerk & Herzblut
-            </span>
-
-            <h3 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-primary leading-tight mb-6">
-              Mino & Tibor
-            </h3>
-
-            <p className="text-base md:text-lg lg:text-xl text-espresso/80 leading-relaxed mb-6">
-              Wir sind kein anonymer Gastro-Betrieb, wir sind eine Familie. Mino
-              (Padrone) und Tibor (Küchenchef seit über 20 Jahren) sind ein
-              eingespieltes Team. Hier wird noch mit echter Hingabe gekocht –
-              ohne Chichi, aber mit viel Amore.
-            </p>
-
-            <p className="text-base md:text-lg text-espresso font-medium italic">
-              „Komm vorbei, lass den Alltag draußen. Wie bei Freunden zu Hause."
-            </p>
-          </div>
-
-          {/* Right Content - Team Image */}
-          <div ref={imageRef} className="team-img opacity-0">
-            <div className="relative group overflow-hidden rounded-lg shadow-bacco-lg">
-              <img
-                src={TEAM_IMAGE}
-                alt="Mino und Tibor – das Herz des Caffe Bacco"
-                className="w-full h-auto object-cover aspect-[4/3]
-                           transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]
-                           group-hover:scale-105"
-              />
-            </div>
-            {/* Subtle decorative element */}
-            <div className="absolute -bottom-3 -left-3 md:-bottom-4 md:-left-4 w-20 md:w-28 h-20 md:h-28 border-2 border-gold/30 rounded-lg -z-10" />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
 }
 
 // ============================================
-// FOOTER / CONTACT SECTION
+// GALLERY – Grid, subtle color
 // ============================================
-function FooterSection() {
-  const contentRef = useRef<HTMLDivElement>(null);
+function Gallery() {
+    const sectionRef = useRef<HTMLElement>(null);
+    useScrollReveal(sectionRef);
 
-  useGSAP(() => {
-    const elements = contentRef.current?.querySelectorAll('.footer-animate');
-    if (elements) {
-      gsap.fromTo(
-        elements,
-        { autoAlpha: 0, y: 40 },
-        {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: contentRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-          },
-        }
-      );
-    }
-  });
-
-  return (
-    <footer id="kontakt" className="bg-espresso text-white py-16 md:py-24 px-4">
-      <div ref={contentRef} className="container mx-auto footer-content">
-        {/* Headline */}
-        <h3 className="footer-animate font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-12 md:mb-16 opacity-0">
-          Dein Weg zu uns
-        </h3>
-
-        {/* Cash Only Warning Box */}
-        <div className="footer-animate max-w-md mx-auto mb-12 md:mb-16 opacity-0">
-          <div className="border-2 border-gold rounded-lg p-4 md:p-5 flex items-center gap-4 bg-gold/5">
-            <AlertCircle className="w-6 h-6 text-gold flex-shrink-0" />
-            <p className="text-gold font-body font-semibold text-sm md:text-base">
-              WICHTIG: Nur Barzahlung möglich! (Cash Only)
-            </p>
-          </div>
-        </div>
-
-        {/* Contact Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 lg:gap-12 max-w-5xl mx-auto">
-          {/* Address Column */}
-          <div className="footer-animate text-center md:text-left opacity-0">
-            <div className="flex items-center justify-center md:justify-start gap-2 mb-4">
-              <MapPin className="w-5 h-5 text-gold" />
-              <h4 className="font-heading text-xl font-semibold text-white">Adresse</h4>
+    return (
+        <section ref={sectionRef} className="cb-gallery">
+            <div className="cb-gallery-grid cb-reveal">
+                <div className="cb-gallery-item">
+                    <img src={gallery1} alt="Wein" />
+                </div>
+                <div className="cb-gallery-item">
+                    <img src={gallery2} alt="Antipasti" />
+                </div>
+                <div className="cb-gallery-item">
+                    <img src={gallery3} alt="Handwerk" />
+                </div>
+                <div className="cb-gallery-item">
+                    <img src={gallery4} alt="Gedeckter Tisch" />
+                </div>
             </div>
-            <div className="text-white/80 leading-relaxed mb-5">
-              <p className="font-semibold text-white">Caffe Bacco</p>
-              <p>Margaretenstraße 25</p>
-              <p>1040 Wien</p>
-            </div>
-            <a
-              href="https://maps.google.com/?q=Caffe+Bacco+Wien"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block border-2 border-gold text-gold font-body font-medium px-5 py-2.5 rounded-lg
-                         transition-all duration-300 ease-out
-                         hover:bg-gold hover:text-espresso hover:scale-[1.02]
-                         active:scale-[0.98]"
-            >
-              Route planen
-            </a>
-          </div>
-
-          {/* Opening Hours Column */}
-          <div className="footer-animate text-center opacity-0">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Clock className="w-5 h-5 text-gold" />
-              <h4 className="font-heading text-xl font-semibold text-white">Öffnungszeiten</h4>
-            </div>
-            <div className="text-white/80 leading-relaxed">
-              <p className="font-semibold text-white">Mo – Fr: 12:00 – 24:00</p>
-              <p className="text-sm text-white/60">(Küche bis 21:30)</p>
-              <p className="mt-3">Sa, So & Feiertage:</p>
-              <p className="font-semibold text-white">Geschlossen</p>
-            </div>
-          </div>
-
-          {/* Reservation Column */}
-          <div className="footer-animate text-center md:text-right opacity-0">
-            <div className="flex items-center justify-center md:justify-end gap-2 mb-4">
-              <Phone className="w-5 h-5 text-gold" />
-              <h4 className="font-heading text-xl font-semibold text-white">Reservierung</h4>
-            </div>
-            <p className="text-white/80 mb-4">
-              Am besten persönlich<br />per Telefon:
-            </p>
-            <a
-              href="tel:+4315856690"
-              className="inline-block font-heading text-2xl md:text-3xl font-bold text-gold
-                         transition-all duration-300 ease-out
-                         hover:text-white hover:scale-[1.02]
-                         active:scale-[0.98]"
-            >
-              +43 1 585 66 90
-            </a>
-          </div>
-        </div>
-
-        {/* Copyright */}
-        <div className="footer-animate mt-16 md:mt-20 pt-8 border-t border-white/10 text-center opacity-0">
-          <p className="text-white/50 text-sm">
-            © {new Date().getFullYear()} Caffe Bacco. Alle Rechte vorbehalten.
-          </p>
-        </div>
-      </div>
-    </footer>
-  );
+        </section>
+    );
 }
 
 // ============================================
-// MAIN APP COMPONENT
+// CHI SIAMO – Team section with new text
+// ============================================
+function ChiSiamo() {
+    const sectionRef = useRef<HTMLElement>(null);
+    useScrollReveal(sectionRef);
+
+    return (
+        <section ref={sectionRef} id="chi-siamo" className="cb-team" style={{ scrollMarginTop: '5rem' }}>
+            <div className="cb-team-inner">
+                <div className="cb-team-image cb-reveal">
+                    <img src={TEAM_IMAGE} alt="Das Team des Caffe Bacco" />
+                </div>
+                <div className="cb-team-text">
+                    <div className="cb-number cb-reveal" style={{ fontSize: '5rem' }}>02</div>
+                    <span className="cb-label cb-reveal" style={{ display: 'block', marginBottom: '1rem' }}>
+                        Chi Siamo
+                    </span>
+                    <h2 className="cb-team-title cb-display cb-reveal">
+                        La <span className="cb-serif">Famiglia</span>
+                    </h2>
+                    <p className="cb-body cb-reveal">
+                        Wie auch in Italien Trattorien Familienbetriebe sind, so ist auch die
+                        Trattoria Caffe Bacco ein familiär geführter Betrieb.
+                    </p>
+                    <p className="cb-body cb-reveal" style={{ marginTop: '1rem' }}>
+                        Das Bacco Team, Mino, Stefanie und unser Koch Tibor, der die Gaumen
+                        unserer Gäste schon seit über zwanzig Jahren verwöhnt, ist jeden Tag
+                        für Sie da. Unsere Familie, Kinder und enge Freunde unterstützen uns
+                        tatkräftig!
+                    </p>
+                    <p className="cb-body cb-reveal" style={{ marginTop: '1rem' }}>
+                        Das ist wahrscheinlich auch der Grund, dass wir von unseren Gästen
+                        immer wieder hören sie würden sich bei uns wie zuhause fühlen.
+                    </p>
+                    <p className="cb-body cb-reveal" style={{ marginTop: '1rem' }}>
+                        Wir hoffen darauf Ihnen weiterhin ein „Stück Italien" in unserem
+                        „Wohnzimmer" näherbringen zu dürfen und freuen uns schon jetzt
+                        auf Ihren Besuch!
+                    </p>
+                    <p className="cb-reveal cb-team-signature">
+                        Mino, Stefanie & Tibor
+                    </p>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+// ============================================
+// LOCATION – Full-bleed image
+// ============================================
+function Location() {
+    const sectionRef = useRef<HTMLElement>(null);
+    useScrollReveal(sectionRef);
+
+    return (
+        <section ref={sectionRef} className="cb-location">
+            <div className="cb-location-image cb-reveal">
+                <img src={LOCATION_IMAGE} alt="Das Caffe Bacco" />
+            </div>
+        </section>
+    );
+}
+
+// ============================================
+// FOOTER – with prominent cash-only badge
+// ============================================
+function Footer() {
+    const footerRef = useRef<HTMLElement>(null);
+    useScrollReveal(footerRef);
+
+    return (
+        <footer ref={footerRef} id="kontakt" className="cb-footer" style={{ scrollMarginTop: '5rem' }}>
+            <div className="cb-footer-inner">
+                <div className="cb-footer-top">
+                    {/* Address */}
+                    <div className="cb-footer-col cb-reveal">
+                        <div className="cb-footer-col-title">
+                            <MapPin size={11} style={{ display: 'inline', marginRight: '0.3rem', verticalAlign: '-1px' }} />
+                            Adresse
+                        </div>
+                        <p>
+                            <strong>Caffe Bacco</strong><br />
+                            Margaretenstraße 25<br />
+                            1040 Wien
+                        </p>
+                        <a href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer" className="cb-footer-route-btn">
+                            Route <ArrowRight size={11} />
+                        </a>
+                    </div>
+
+                    {/* Hours */}
+                    <div className="cb-footer-col cb-reveal">
+                        <div className="cb-footer-col-title">
+                            <Clock size={11} style={{ display: 'inline', marginRight: '0.3rem', verticalAlign: '-1px' }} />
+                            Öffnungszeiten
+                        </div>
+                        <p>
+                            <strong>Mo – Fr: 12:00 – 24:00</strong><br />
+                            <span style={{ fontSize: '0.75rem', color: 'var(--cb-ink-40)' }}>(Küche bis 21:30)</span><br /><br />
+                            Sa, So & Feiertage:<br />
+                            Geschlossen<br />
+                            <span style={{ fontSize: '0.75rem', color: 'var(--cb-ink-40)' }}>
+                                (Gruppen ab 20 Pers. auf Anfrage)
+                            </span>
+                        </p>
+                    </div>
+
+                    {/* Reservation + Cash Notice */}
+                    <div className="cb-footer-col cb-reveal">
+                        <div className="cb-footer-col-title">
+                            <Phone size={11} style={{ display: 'inline', marginRight: '0.3rem', verticalAlign: '-1px' }} />
+                            Reservierung
+                        </div>
+                        <p>Persönlich per Telefon:</p>
+                        <a href="tel:+4315856690" className="cb-footer-phone">
+                            +43 1 585 66 90
+                        </a>
+
+                        {/* Cash-only badge – prominent like V1 */}
+                        <div className="cb-cash-badge">
+                            <AlertCircle size={16} />
+                            <span>Nur Barzahlung möglich! (Cash Only)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="cb-footer-bottom cb-reveal">
+                    <p>© {new Date().getFullYear()} Caffe Bacco</p>
+                    <div className="cb-footer-accent-line" />
+                    <p>Wien · Trattoria</p>
+                </div>
+            </div>
+        </footer>
+    );
+}
+
+// ============================================
+// MOBILE ACTION BAR
+// ============================================
+function MobileBar({ onOpenReservation }: { onOpenReservation: () => void }) {
+    return (
+        <nav className="cb-mobile-bar" style={{
+            position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 90,
+            paddingBottom: 'env(safe-area-inset-bottom)',
+        }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}>
+                <a href="tel:+4315856690" style={{
+                    display: 'flex', flexDirection: 'column', alignItems: 'center',
+                    justifyContent: 'center', padding: '0.75rem', gap: '0.25rem',
+                    color: 'var(--cb-ink-40)', textDecoration: 'none',
+                    fontSize: '0.5625rem', letterSpacing: '0.2em', textTransform: 'uppercase',
+                    fontWeight: 500,
+                }}>
+                    <Phone size={20} />
+                    <span>Anrufen</span>
+                </a>
+
+                <button onClick={onOpenReservation} style={{
+                    display: 'flex', flexDirection: 'column', alignItems: 'center',
+                    justifyContent: 'center', padding: '0.75rem', gap: '0.25rem',
+                    background: 'none', border: 'none', cursor: 'pointer',
+                }}>
+                    <div style={{
+                        width: '2.75rem', height: '2.75rem', marginTop: '-1.25rem',
+                        background: 'var(--cb-primary)', display: 'flex', alignItems: 'center',
+                        justifyContent: 'center',
+                    }}>
+                        <CalendarDays size={20} color="var(--cb-bg)" />
+                    </div>
+                    <span style={{
+                        fontSize: '0.5625rem', letterSpacing: '0.2em', textTransform: 'uppercase',
+                        color: 'var(--cb-primary)', fontWeight: 600, marginTop: '0',
+                    }}>
+                        Reservieren
+                    </span>
+                </button>
+
+                <a href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer" style={{
+                    display: 'flex', flexDirection: 'column', alignItems: 'center',
+                    justifyContent: 'center', padding: '0.75rem', gap: '0.25rem',
+                    color: 'var(--cb-ink-40)', textDecoration: 'none',
+                    fontSize: '0.5625rem', letterSpacing: '0.2em', textTransform: 'uppercase',
+                    fontWeight: 500,
+                }}>
+                    <MapPin size={20} />
+                    <span>Route</span>
+                </a>
+            </div>
+        </nav>
+    );
+}
+
+// ============================================
+// MAIN APP
 // ============================================
 function App() {
-  const [isReservationOpen, setIsReservationOpen] = useState(false);
+    const [isReservationOpen, setIsReservationOpen] = useState(false);
+    const handleOpen = () => setIsReservationOpen(true);
+    const handleClose = () => setIsReservationOpen(false);
 
-  const handleOpenReservation = () => setIsReservationOpen(true);
-  const handleCloseReservation = () => setIsReservationOpen(false);
+    return (
+        <div className="caffe-bacco" style={{ paddingBottom: '5rem' }}>
+            <Header onOpenReservation={handleOpen} />
+            <main>
+                <Hero onOpenReservation={handleOpen} />
+                <Divider />
+                <Filosofia />
+                <Gallery />
+                <Divider />
+                <ChiSiamo />
+                <Location />
+            </main>
+            <Footer />
 
-  return (
-    <div className="overflow-x-hidden pb-20 md:pb-0">
-      <Header />
-      <main>
-        <HeroSection onOpenReservation={handleOpenReservation} />
-        <ConceptSection />
-        <TeamSection />
-      </main>
-      <FooterSection />
-      <MobileActionBar onOpenReservation={handleOpenReservation} />
-      <ReservationModal
-        isOpen={isReservationOpen}
-        onClose={handleCloseReservation}
-      />
-    </div>
-  );
+            <div className="md:hidden">
+                <MobileBar onOpenReservation={handleOpen} />
+            </div>
+
+            <ReservationModal isOpen={isReservationOpen} onClose={handleClose} />
+        </div>
+    );
 }
 
 export default App;
