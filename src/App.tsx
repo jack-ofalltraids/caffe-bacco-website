@@ -11,6 +11,11 @@ gsap.registerPlugin(ScrollTrigger);
 // ── Brand Assets
 import logoText from './assets/brand/logo-text.png';
 import menuCard from './assets/brand/menu-card.png';
+import baccoIllustration from './assets/brand/bacco-illustration.jpg';
+
+// ── Team Photos
+import minoStefanie from './assets/team/mino-stefanie.jpg';
+import teamFull from './assets/team/team-full.jpg';
 
 // ── Placeholder images (replace with real photos later)
 import heroPlaceholder from './assets/placeholders/hero.jpg';
@@ -22,7 +27,6 @@ import gallery3 from './assets/placeholders/gallery-3.jpg';
 import gallery4 from './assets/placeholders/gallery-4.jpg';
 
 const HERO_IMAGE = heroPlaceholder;
-const TEAM_IMAGE = 'https://www.caffebacco.at/.cm4all/uproc.php/0/.WhatsApp%20Image%202024-07-08%20at%2018.29.19%20(11).jpeg/picture-2600?_=190c56695e8';
 const FOOD_IMAGE = foodPlaceholder;
 const LOCATION_IMAGE = locationPlaceholder;
 const GOOGLE_MAPS_URL = 'https://www.google.com/maps?daddr=Margaretenstra%C3%9Fe+25,+1040+Wien';
@@ -147,7 +151,7 @@ function Hero({ onOpenReservation }: { onOpenReservation: () => void }) {
 }
 
 // ============================================
-// FILOSOFIA – Full rewrite with menu card
+// FILOSOFIA – with Bacco illustration + menu card
 // ============================================
 function Filosofia() {
     const sectionRef = useRef<HTMLElement>(null);
@@ -164,20 +168,31 @@ function Filosofia() {
                     <h2 className="cb-section-title cb-display cb-reveal">
                         Unsere <span className="cb-serif">Küche</span>
                     </h2>
-                    <p className="cb-body cb-reveal">
-                        Wir erfreuen unsere Gäste nun schon seit 2002 mit typisch toskanischer Küche,
-                        kochen mit hochqualitativen und manchmal auch selten gewordenen Produkten und
-                        orientieren uns gerne daran was die Natur saisonal für uns bereit hält!
-                    </p>
-                    <p className="cb-body cb-reveal" style={{ marginTop: '1rem' }}>
-                        Unser Konzept bedient sich nicht der klassischen „à la Carte" Gastronomie –
-                        wir arbeiten nach dem „Sharing Prinzip" und laden unsere Gäste so auf eine
-                        kulinarische Reise ein!
-                    </p>
 
-                    {/* Menu Card */}
-                    <div className="cb-menu-card cb-reveal">
-                        <img src={menuCard} alt="Caffe Bacco Menü – Antipasto, Primi Piatti, Secondo Piatto, Dolci Misti – EUR 65,– pP" />
+                    {/* Bacco Illustration + Intro Text side by side */}
+                    <div className="cb-filosofia-intro cb-reveal">
+                        <div className="cb-filosofia-illustration">
+                            <img src={baccoIllustration} alt="Bacco – der Gott des Weines" />
+                        </div>
+                        <div className="cb-filosofia-text">
+                            <p className="cb-body">
+                                Wir erfreuen unsere Gäste nun schon seit 2002 mit typisch toskanischer Küche,
+                                kochen mit hochqualitativen und manchmal auch selten gewordenen Produkten und
+                                orientieren uns gerne daran was die Natur saisonal für uns bereit hält!
+                            </p>
+                            <p className="cb-body" style={{ marginTop: '1rem' }}>
+                                Unser Konzept bedient sich nicht der klassischen „à la Carte" Gastronomie –
+                                wir arbeiten nach dem „Sharing Prinzip" und laden unsere Gäste so auf eine
+                                kulinarische Reise ein!
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Menu Card – centered, polished */}
+                    <div className="cb-menu-card-wrapper cb-reveal">
+                        <div className="cb-menu-card">
+                            <img src={menuCard} alt="Caffe Bacco Menü – Antipasto, Primi Piatti, Secondo Piatto, Dolci Misti – EUR 65,– pP" />
+                        </div>
                     </div>
 
                     {/* Opening hours in context */}
@@ -256,7 +271,7 @@ function Gallery() {
 }
 
 // ============================================
-// CHI SIAMO – Team section with new text
+// CHI SIAMO – Team section with couple + team photos
 // ============================================
 function ChiSiamo() {
     const sectionRef = useRef<HTMLElement>(null);
@@ -264,18 +279,25 @@ function ChiSiamo() {
 
     return (
         <section ref={sectionRef} id="chi-siamo" className="cb-team" style={{ scrollMarginTop: '5rem' }}>
-            <div className="cb-team-inner">
-                <div className="cb-team-image cb-reveal">
-                    <img src={TEAM_IMAGE} alt="Das Team des Caffe Bacco" />
-                </div>
-                <div className="cb-team-text">
-                    <div className="cb-number cb-reveal" style={{ fontSize: '5rem' }}>02</div>
+            {/* Section header */}
+            <div className="cb-team-header">
+                <div className="cb-number cb-reveal" style={{ fontSize: '5rem' }}>02</div>
+                <div>
                     <span className="cb-label cb-reveal" style={{ display: 'block', marginBottom: '1rem' }}>
                         Chi Siamo
                     </span>
                     <h2 className="cb-team-title cb-display cb-reveal">
                         La <span className="cb-serif">Famiglia</span>
                     </h2>
+                </div>
+            </div>
+
+            {/* Couple photo + text */}
+            <div className="cb-team-inner">
+                <div className="cb-team-image cb-reveal">
+                    <img src={minoStefanie} alt="Mino & Stefanie – die Gastgeber des Caffe Bacco" />
+                </div>
+                <div className="cb-team-text">
                     <p className="cb-body cb-reveal">
                         Wie auch in Italien Trattorien Familienbetriebe sind, so ist auch die
                         Trattoria Caffe Bacco ein familiär geführter Betrieb.
@@ -299,6 +321,12 @@ function ChiSiamo() {
                         Mino, Stefanie & Tibor
                     </p>
                 </div>
+            </div>
+
+            {/* Full team photo */}
+            <div className="cb-team-group cb-reveal">
+                <img src={teamFull} alt="Das gesamte Bacco Team" />
+                <p className="cb-team-group-caption">Unser Team – gemeinsam für Sie da.</p>
             </div>
         </section>
     );
