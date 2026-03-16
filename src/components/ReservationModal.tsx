@@ -118,46 +118,43 @@ export function ReservationModal({ isOpen, onClose }: ReservationModalProps) {
 
     return (
         <div
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+            className="cb-modal-overlay"
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-title"
         >
             {/* Backdrop */}
-            <div
-                className="absolute inset-0 bg-espresso/60 backdrop-blur-sm"
-                onClick={handleClose}
-            />
+            <div className="cb-modal-backdrop" onClick={handleClose} />
 
             {/* Modal Card */}
-            <div className="relative bg-white rounded-xl shadow-bacco-lg w-full max-w-lg max-h-[90vh] overflow-y-auto z-10">
+            <div className="cb-modal-card">
                 {/* Close Button */}
                 <button
                     onClick={handleClose}
-                    className="absolute top-4 right-4 p-2 text-espresso/60 hover:text-espresso transition-colors"
+                    className="cb-modal-close"
                     aria-label="Schließen"
                 >
-                    <X className="w-5 h-5" />
+                    <X size={18} />
                 </button>
 
-                <div className="p-6 md:p-8">
+                <div className="cb-modal-body">
                     {/* Success State */}
                     {status === 'success' && (
-                        <div className="text-center py-8">
-                            <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-green-100 flex items-center justify-center">
-                                <CheckCircle className="w-8 h-8 text-green-600" />
+                        <div className="cb-modal-status">
+                            <div className="cb-modal-status-icon cb-modal-status-icon--success">
+                                <CheckCircle size={28} />
                             </div>
-                            <h3 className="font-heading text-2xl font-bold text-primary mb-4">
+                            <h3 className="cb-modal-status-title cb-display">
                                 Grazie!
                             </h3>
-                            <p className="text-espresso/80 leading-relaxed">
+                            <p className="cb-body">
                                 Deine Anfrage ist bei uns angekommen. Wir melden uns in Kürze per
                                 E-Mail bei dir.
                             </p>
                             <button
                                 onClick={handleClose}
-                                className="mt-6 px-6 py-3 bg-primary text-white font-semibold rounded-lg
-                           transition-all duration-300 hover:bg-[#63161c]"
+                                className="cb-btn-primary"
+                                style={{ marginTop: '1.5rem' }}
                             >
                                 Schließen
                             </button>
@@ -166,26 +163,26 @@ export function ReservationModal({ isOpen, onClose }: ReservationModalProps) {
 
                     {/* Error State */}
                     {status === 'error' && (
-                        <div className="text-center py-8">
-                            <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-red-100 flex items-center justify-center">
-                                <AlertTriangle className="w-8 h-8 text-red-600" />
+                        <div className="cb-modal-status">
+                            <div className="cb-modal-status-icon cb-modal-status-icon--error">
+                                <AlertTriangle size={28} />
                             </div>
-                            <h3 className="font-heading text-2xl font-bold text-primary mb-4">
+                            <h3 className="cb-modal-status-title cb-display">
                                 Scusa!
                             </h3>
-                            <p className="text-espresso/80 leading-relaxed mb-2">
+                            <p className="cb-body" style={{ marginBottom: '0.5rem' }}>
                                 Da ist etwas schiefgelaufen.
                             </p>
-                            <p className="text-espresso/80">
+                            <p className="cb-body">
                                 Bitte ruf uns kurz an:{' '}
-                                <a href="tel:+4315856690" className="text-primary font-semibold hover:underline">
+                                <a href="tel:+4315856690" className="cb-modal-phone-link">
                                     +43 1 585 66 90
                                 </a>
                             </p>
                             <button
                                 onClick={() => setStatus('idle')}
-                                className="mt-6 px-6 py-3 border-2 border-primary text-primary font-semibold rounded-lg
-                           transition-all duration-300 hover:bg-primary hover:text-white"
+                                className="cb-btn-ghost"
+                                style={{ marginTop: '1.5rem' }}
                             >
                                 Nochmal versuchen
                             </button>
@@ -195,17 +192,19 @@ export function ReservationModal({ isOpen, onClose }: ReservationModalProps) {
                     {/* Form State */}
                     {(status === 'idle' || status === 'loading') && (
                         <>
-                            <h2
-                                id="modal-title"
-                                className="font-heading text-2xl md:text-3xl font-bold text-primary mb-6 pr-8"
-                            >
-                                Dein Platz bei Mino
-                            </h2>
+                            {/* Header – uses same pattern as section headers */}
+                            <div className="cb-modal-header">
+                                <span className="cb-label">Reservierung</span>
+                                <h2 id="modal-title" className="cb-modal-title cb-display">
+                                    Dein Platz im{' '}
+                                    <span className="cb-serif">Caffe Bacco</span>
+                                </h2>
+                            </div>
 
-                            <form onSubmit={handleSubmit} className="space-y-5">
+                            <form onSubmit={handleSubmit} className="cb-modal-form">
                                 {/* Name */}
-                                <div>
-                                    <label htmlFor="name" className="block text-sm font-medium text-espresso mb-1.5">
+                                <div className="cb-form-group">
+                                    <label htmlFor="name" className="cb-form-label">
                                         Name *
                                     </label>
                                     <input
@@ -215,16 +214,14 @@ export function ReservationModal({ isOpen, onClose }: ReservationModalProps) {
                                         required
                                         value={formData.name}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 rounded-lg border border-espresso/20 bg-parchment/50
-                               focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary
-                               transition-all duration-200"
+                                        className="cb-form-input"
                                         placeholder="Maria Rossi"
                                     />
                                 </div>
 
                                 {/* Email */}
-                                <div>
-                                    <label htmlFor="email" className="block text-sm font-medium text-espresso mb-1.5">
+                                <div className="cb-form-group">
+                                    <label htmlFor="email" className="cb-form-label">
                                         E-Mail *
                                     </label>
                                     <input
@@ -234,16 +231,14 @@ export function ReservationModal({ isOpen, onClose }: ReservationModalProps) {
                                         required
                                         value={formData.email}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 rounded-lg border border-espresso/20 bg-parchment/50
-                               focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary
-                               transition-all duration-200"
+                                        className="cb-form-input"
                                         placeholder="maria@beispiel.at"
                                     />
                                 </div>
 
                                 {/* Phone */}
-                                <div>
-                                    <label htmlFor="phone" className="block text-sm font-medium text-espresso mb-1.5">
+                                <div className="cb-form-group">
+                                    <label htmlFor="phone" className="cb-form-label">
                                         Telefonnummer *
                                     </label>
                                     <input
@@ -253,17 +248,15 @@ export function ReservationModal({ isOpen, onClose }: ReservationModalProps) {
                                         required
                                         value={formData.phone}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 rounded-lg border border-espresso/20 bg-parchment/50
-                               focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary
-                               transition-all duration-200"
+                                        className="cb-form-input"
                                         placeholder="+43 664 123 4567"
                                     />
                                 </div>
 
                                 {/* Date & Time Row */}
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div>
-                                        <label htmlFor="date" className="block text-sm font-medium text-espresso mb-1.5">
+                                <div className="cb-form-row">
+                                    <div className="cb-form-group">
+                                        <label htmlFor="date" className="cb-form-label">
                                             Datum *
                                         </label>
                                         <input
@@ -274,14 +267,11 @@ export function ReservationModal({ isOpen, onClose }: ReservationModalProps) {
                                             min={today}
                                             value={formData.date}
                                             onChange={handleChange}
-                                            className="w-full px-4 py-3 rounded-lg border border-espresso/20 bg-parchment/50
-                                 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary
-                                 transition-all duration-200 accent-primary
-                                 [color-scheme:light]"
+                                            className="cb-form-input"
                                         />
                                     </div>
-                                    <div>
-                                        <label htmlFor="time" className="block text-sm font-medium text-espresso mb-1.5">
+                                    <div className="cb-form-group">
+                                        <label htmlFor="time" className="cb-form-label">
                                             Uhrzeit *
                                         </label>
                                         <input
@@ -293,17 +283,14 @@ export function ReservationModal({ isOpen, onClose }: ReservationModalProps) {
                                             max="21:30"
                                             value={formData.time}
                                             onChange={handleChange}
-                                            className="w-full px-4 py-3 rounded-lg border border-espresso/20 bg-parchment/50
-                                 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary
-                                 transition-all duration-200 accent-primary
-                                 [color-scheme:light]"
+                                            className="cb-form-input"
                                         />
                                     </div>
                                 </div>
 
                                 {/* Guests */}
-                                <div>
-                                    <label htmlFor="guests" className="block text-sm font-medium text-espresso mb-1.5">
+                                <div className="cb-form-group">
+                                    <label htmlFor="guests" className="cb-form-label">
                                         Personenanzahl *
                                     </label>
                                     <input
@@ -315,16 +302,15 @@ export function ReservationModal({ isOpen, onClose }: ReservationModalProps) {
                                         max={20}
                                         value={formData.guests}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 rounded-lg border border-espresso/20 bg-parchment/50
-                               focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary
-                               transition-all duration-200"
+                                        className="cb-form-input"
                                     />
                                 </div>
 
                                 {/* Notes */}
-                                <div>
-                                    <label htmlFor="notes" className="block text-sm font-medium text-espresso mb-1.5">
-                                        Anmerkung <span className="text-espresso/50">(optional)</span>
+                                <div className="cb-form-group">
+                                    <label htmlFor="notes" className="cb-form-label">
+                                        Anmerkung{' '}
+                                        <span className="cb-form-label-hint">(optional)</span>
                                     </label>
                                     <textarea
                                         id="notes"
@@ -332,17 +318,15 @@ export function ReservationModal({ isOpen, onClose }: ReservationModalProps) {
                                         rows={3}
                                         value={formData.notes}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 rounded-lg border border-espresso/20 bg-parchment/50
-                               focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary
-                               transition-all duration-200 resize-none"
+                                        className="cb-form-input cb-form-textarea"
                                         placeholder="Allergien, besondere Anlässe, Kindersitz..."
                                     />
                                 </div>
 
-                                {/* Disclaimer */}
-                                <div className="p-4 bg-gold/10 border border-gold/30 rounded-lg">
-                                    <p className="text-sm text-espresso leading-relaxed">
-                                        <strong className="text-primary">WICHTIG:</strong> Dies ist eine{' '}
+                                {/* Disclaimer – styled like cb-detail-block */}
+                                <div className="cb-modal-disclaimer">
+                                    <p>
+                                        <strong className="cb-modal-disclaimer-strong">WICHTIG:</strong> Dies ist eine{' '}
                                         <strong>Reservierungsanfrage</strong>, keine automatische Bestätigung!
                                         Da wir nur begrenzt Plätze haben, prüfen wir deine Anfrage persönlich.
                                         Du erhältst zeitnah eine E-Mail von uns, wenn der Tisch für dich frei ist.
@@ -354,16 +338,11 @@ export function ReservationModal({ isOpen, onClose }: ReservationModalProps) {
                                 <button
                                     type="submit"
                                     disabled={status === 'loading'}
-                                    className="w-full py-4 bg-primary text-white font-semibold rounded-lg shadow-bacco
-                             transition-all duration-300 ease-out
-                             hover:scale-[1.02] hover:-translate-y-0.5 hover:shadow-bacco-lg hover:bg-[#63161c]
-                             active:scale-[0.98]
-                             disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:translate-y-0
-                             flex items-center justify-center gap-2"
+                                    className="cb-btn-primary cb-modal-submit"
                                 >
                                     {status === 'loading' ? (
                                         <>
-                                            <Loader2 className="w-5 h-5 animate-spin" />
+                                            <Loader2 size={18} className="cb-spin" />
                                             Wird gesendet...
                                         </>
                                     ) : (
@@ -374,13 +353,9 @@ export function ReservationModal({ isOpen, onClose }: ReservationModalProps) {
                                 {/* Call Button */}
                                 <a
                                     href="tel:+4315856690"
-                                    className="w-full py-3.5 bg-espresso text-white font-semibold rounded-lg
-                             transition-all duration-300 ease-out
-                             hover:bg-espresso/90
-                             active:scale-[0.98]
-                             flex items-center justify-center gap-2"
+                                    className="cb-modal-call-btn"
                                 >
-                                    <Phone className="w-5 h-5" />
+                                    <Phone size={16} />
                                     Direkt anrufen
                                 </a>
                             </form>

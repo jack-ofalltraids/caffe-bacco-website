@@ -22,9 +22,6 @@ import teamCouple from './assets/team/couple.jpg';
 import heroPlaceholder from './assets/placeholders/hero.jpg';
 import foodPlaceholder from './assets/placeholders/food.jpg';
 import locationPlaceholder from './assets/placeholders/location.jpg';
-import gallery1 from './assets/placeholders/gallery-1.jpg';
-import gallery3 from './assets/placeholders/gallery-3.jpg';
-import gallery4 from './assets/placeholders/gallery-4.jpg';
 
 const HERO_IMAGE = heroPlaceholder;
 const FOOD_IMAGE = foodPlaceholder;
@@ -144,6 +141,9 @@ function Hero({ onOpenReservation }: { onOpenReservation: () => void }) {
                     <div className="cb-hero-image-strip-item">
                         <img src={HERO_IMAGE} alt="Caffe Bacco – Genuss" />
                     </div>
+                    <div className="cb-hero-image-strip-item">
+                        <img src={LOCATION_IMAGE} alt="Das Caffe Bacco – Außenansicht" style={{ objectPosition: 'center 60%' }} />
+                    </div>
                 </div>
             </div>
         </section>
@@ -244,32 +244,7 @@ function Divider() {
     );
 }
 
-// ============================================
-// GALLERY – Grid, subtle color (5 images incl. location)
-// ============================================
-function Gallery() {
-    const sectionRef = useRef<HTMLElement>(null);
-    useScrollReveal(sectionRef);
 
-    return (
-        <section ref={sectionRef} className="cb-gallery">
-            <div className="cb-gallery-grid cb-reveal">
-                <div className="cb-gallery-item">
-                    <img src={gallery1} alt="Wein" />
-                </div>
-                <div className="cb-gallery-item">
-                    <img src={gallery3} alt="Handwerk" />
-                </div>
-                <div className="cb-gallery-item">
-                    <img src={gallery4} alt="Gedeckter Tisch" />
-                </div>
-                <div className="cb-gallery-item">
-                    <img src={LOCATION_IMAGE} alt="Das Caffe Bacco – Außenansicht" />
-                </div>
-            </div>
-        </section>
-    );
-}
 
 // ============================================
 // CHI SIAMO – Team section with crossfade carousel
@@ -508,7 +483,6 @@ function App() {
                 <Filosofia />
                 <Divider />
                 <ChiSiamo />
-                <Gallery />
             </main>
             <Footer />
 
