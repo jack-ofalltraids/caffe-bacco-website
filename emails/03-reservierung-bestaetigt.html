@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Reservierung bestätigt – Caffe Bacco</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
+
+    body, table, td, p, a, li { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+
+    body {
+      margin: 0; padding: 0; width: 100%; background-color: #F0EFED;
+      font-family: 'Space Grotesk', Helvetica, Arial, sans-serif;
+      color: #1A1412;
+    }
+
+    .email-wrapper { width: 100%; background-color: #F0EFED; padding: 40px 0; }
+    .email-container { max-width: 600px; margin: 0 auto; background-color: #FAFAFA; }
+
+    /* ── Header ── */
+    .header {
+      background-color: #FAFAFA;
+      text-align: center;
+      padding: 36px 40px 28px;
+      border-bottom: 3px solid #7C1C23;
+    }
+    .header-brand {
+      font-family: 'Space Grotesk', Helvetica, Arial, sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #1A1412;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      margin: 0 0 4px;
+    }
+    .header-sub {
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #7C1C23;
+      margin: 0;
+      font-weight: 500;
+    }
+
+    /* ── Success Badge ── */
+    .hero-badge {
+      text-align: center;
+      padding: 40px 40px 12px;
+    }
+    .checkmark {
+      display: inline-block;
+      width: 56px;
+      height: 56px;
+      line-height: 56px;
+      background-color: #7C1C23;
+      color: #FFFFFF;
+      font-size: 28px;
+      text-align: center;
+    }
+
+    /* ── Body ── */
+    .body-content {
+      padding: 12px 44px 40px;
+    }
+    .greeting {
+      font-family: 'Space Grotesk', Helvetica, Arial, sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: #1A1412;
+      margin: 0 0 4px;
+      text-align: center;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+    }
+    .greeting-accent {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic;
+      text-transform: none;
+      letter-spacing: 0;
+      color: #7C1C23;
+    }
+    .greeting-sub {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 17px;
+      font-style: italic;
+      color: rgba(26, 20, 18, 0.6);
+      margin: 0 0 28px;
+      text-align: center;
+    }
+    .intro {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: rgba(26, 20, 18, 0.7);
+      margin: 0 0 28px;
+    }
+
+    /* ── Reservation Card: brand red bg ── */
+    .confirmed-card {
+      background-color: #7C1C23;
+      padding: 32px 32px;
+      margin: 0 0 32px;
+      text-align: center;
+    }
+    .confirmed-card-label {
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.6);
+      margin: 0 0 16px;
+      font-weight: 500;
+    }
+    .confirmed-detail {
+      font-family: 'Space Grotesk', Helvetica, Arial, sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin: 0 0 4px;
+      letter-spacing: -0.02em;
+    }
+    .confirmed-detail-sub {
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.7);
+      margin: 0 0 16px;
+    }
+    .confirmed-divider {
+      height: 1px;
+      background-color: rgba(255, 255, 255, 0.2);
+      margin: 16px auto;
+      width: 60%;
+    }
+    .confirmed-guests {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+      margin: 0;
+    }
+    .confirmed-guests strong {
+      font-family: 'Space Grotesk', Helvetica, Arial, sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: #FFFFFF;
+      display: block;
+      margin-bottom: 2px;
+      letter-spacing: -0.02em;
+    }
+
+    /* ── Tips Section ── */
+    .tips-title {
+      font-family: 'Space Grotesk', Helvetica, Arial, sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #7C1C23;
+      margin: 0 0 14px;
+    }
+    .tip-bullet {
+      width: 6px;
+      height: 6px;
+      background-color: #7C1C23;
+    }
+    .tip-text {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: rgba(26, 20, 18, 0.7);
+    }
+    .tip-text strong {
+      color: #1A1412;
+      font-weight: 600;
+    }
+    .tip-text em {
+      font-family: 'Instrument Serif', Georgia, serif;
+      color: #7C1C23;
+    }
+
+    /* ── Cash Notice ── */
+    .cash-notice {
+      background-color: #7C1C23;
+      padding: 16px 20px;
+      margin: 28px 0;
+      text-align: center;
+    }
+    .cash-notice p {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      margin: 0;
+    }
+    .cash-notice span {
+      font-size: 11px;
+      font-weight: 300;
+      text-transform: none;
+      letter-spacing: 0;
+      color: rgba(255, 255, 255, 0.7);
+      display: block;
+      margin-top: 4px;
+    }
+
+    /* ── Route Button (ghost style) ── */
+    .btn-route {
+      display: block;
+      text-align: center;
+      padding: 16px 36px;
+      border: 1px solid rgba(26, 20, 18, 0.15);
+      color: #1A1412 !important;
+      font-family: 'Space Grotesk', Helvetica, Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      margin: 0 0 32px;
+    }
+
+    /* ── Closing ── */
+    .closing {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: rgba(26, 20, 18, 0.7);
+      margin: 0 0 6px;
+    }
+    .signature {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic;
+      font-size: 18px;
+      color: #7C1C23;
+      margin: 12px 0 0;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      border-top: 1px solid rgba(26, 20, 18, 0.08);
+      text-align: center;
+      padding: 24px 40px;
+    }
+    .footer p {
+      font-size: 11px;
+      color: rgba(26, 20, 18, 0.35);
+      margin: 0 0 3px;
+    }
+    .footer a {
+      color: rgba(26, 20, 18, 0.35);
+      text-decoration: none;
+    }
+
+    @media only screen and (max-width: 620px) {
+      .email-container { width: 100% !important; }
+      .body-content { padding: 12px 24px 28px !important; }
+      .header { padding: 28px 24px 22px !important; }
+      .confirmed-card { padding: 24px 20px !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="email-wrapper">
+    <table role="presentation" class="email-container" align="center" cellpadding="0" cellspacing="0" width="600">
+
+      <!-- HEADER -->
+      <tr>
+        <td class="header">
+          <img src="https://www.caffebacco.at/assets/logo-text-DBWFV4ig.png" alt="Caffe Bacco" style="height: 40px; width: auto; display: inline-block;" />
+          <p class="header-sub">Autentica Cucina Toscana · Wien</p>
+        </td>
+      </tr>
+
+      <!-- SUCCESS BADGE -->
+      <tr>
+        <td class="hero-badge">
+          <div class="checkmark">✓</div>
+        </td>
+      </tr>
+
+      <!-- BODY -->
+      <tr>
+        <td class="body-content">
+
+          <p class="greeting">
+            Perfetto, <span class="greeting-accent">{{ $('Webhook').item.json.body.name }}</span>!
+          </p>
+          <p class="greeting-sub">Dein Tisch ist reserviert.</p>
+
+          <p class="intro">
+            Wunderbar – wir haben einen schönen Platz für dich freigehalten!
+            Hier nochmal alle Details auf einen Blick:
+          </p>
+
+          <!-- Confirmed Reservation Card (Brand Red) -->
+          <div class="confirmed-card">
+            <p class="confirmed-card-label">Deine Reservierung</p>
+            <p class="confirmed-detail">{{ $('Webhook').item.json.body.date }}</p>
+            <p class="confirmed-detail-sub">{{ $('Webhook').item.json.body.time }} Uhr</p>
+            <div class="confirmed-divider"></div>
+            <p class="confirmed-guests">
+              <strong>{{ $('Webhook').item.json.body.guests }} Personen</strong>
+              Tisch für {{ $('Webhook').item.json.body.name }}
+            </p>
+          </div>
+
+          <!-- Tips -->
+          <p class="tips-title">Gut zu wissen</p>
+          <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 4px;">
+            <tr>
+              <td style="width: 18px; vertical-align: top; padding: 6px 0;">
+                <div class="tip-bullet"></div>
+              </td>
+              <td class="tip-text" style="padding: 0 0 12px;">
+                Bei uns gibt es <strong>keine Speisekarte</strong> im klassischen Sinn. Unser Koch überrascht dich
+                mit einem frischen Mehrgänge-Menü – <em>Trust the Chef!</em> 🧑‍🍳
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 18px; vertical-align: top; padding: 6px 0;">
+                <div class="tip-bullet"></div>
+              </td>
+              <td class="tip-text" style="padding: 0 0 12px;">
+                Falls du <strong>Allergien oder Unverträglichkeiten</strong> hast, sag uns gerne Bescheid –
+                am besten vorab per Telefon oder E-Mail.
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 18px; vertical-align: top; padding: 6px 0;">
+                <div class="tip-bullet"></div>
+              </td>
+              <td class="tip-text" style="padding: 0 0 0;">
+                Falls sich deine Pläne ändern, ruf uns bitte kurz an, damit wir den Tisch freigeben können.
+              </td>
+            </tr>
+          </table>
+
+          <!-- Cash Notice -->
+          <div class="cash-notice">
+            <p>💶 Nur Barzahlung möglich (Cash Only)</p>
+            <span>Bankomat &amp; Kreditkarte sind leider nicht möglich.</span>
+          </div>
+
+          <!-- Route Button -->
+          <a href="https://www.google.com/maps?daddr=Margaretenstra%C3%9Fe+25,+1040+Wien" class="btn-route">
+            📍 &nbsp;Route planen
+          </a>
+
+          <!-- Closing -->
+          <p class="closing">
+            Wir freuen uns schon auf dich! Bring guten Appetit mit – und vielleicht
+            a bisserl Durst. 🍷
+          </p>
+          <p class="closing">Ci vediamo!</p>
+          <p class="signature">Mino, Stefanie &amp; Tibor</p>
+
+        </td>
+      </tr>
+
+      <!-- FOOTER -->
+      <tr>
+        <td class="footer">
+          <p>Caffe Bacco · Margaretenstraße 25 · 1040 Wien</p>
+          <p><a href="tel:+4315856690">+43 1 585 66 90</a></p>
+          <p style="margin-top: 10px; font-size: 10px;">
+            Automatisch versendet · Bitte nicht antworten
+          </p>
+        </td>
+      </tr>
+
+    </table>
+  </div>
+</body>
+</html>

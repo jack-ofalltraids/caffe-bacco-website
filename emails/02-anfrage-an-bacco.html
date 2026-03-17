@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Neue Reservierungsanfrage – Caffe Bacco</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
+
+    body, table, td, p, a, li { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+
+    body {
+      margin: 0; padding: 0; width: 100%; background-color: #F0EFED;
+      font-family: 'Space Grotesk', Helvetica, Arial, sans-serif;
+      color: #1A1412;
+    }
+
+    .email-wrapper { width: 100%; background-color: #F0EFED; padding: 40px 0; }
+    .email-container { max-width: 600px; margin: 0 auto; background-color: #FAFAFA; }
+
+    /* ── Header ── */
+    .header {
+      background-color: #FAFAFA;
+      text-align: center;
+      padding: 28px 40px 22px;
+      border-bottom: 3px solid #7C1C23;
+    }
+    .header-sub {
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(26, 20, 18, 0.4);
+      margin: 8px 0 0;
+      font-weight: 500;
+    }
+
+    /* ── Alert Bar ── */
+    .alert-bar {
+      background-color: #7C1C23;
+      text-align: center;
+      padding: 14px 20px;
+    }
+    .alert-bar p {
+      font-family: 'Space Grotesk', Helvetica, Arial, sans-serif;
+      color: #FFFFFF;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    /* ── Body ── */
+    .body-content {
+      padding: 36px 44px;
+    }
+    .section-title {
+      font-family: 'Space Grotesk', Helvetica, Arial, sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #1A1412;
+      margin: 0 0 4px;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+    }
+    .section-sub {
+      font-size: 12px;
+      font-weight: 300;
+      color: rgba(26, 20, 18, 0.4);
+      margin: 0 0 24px;
+    }
+
+    /* ── Info Table ── */
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 0 28px;
+    }
+    .info-table td {
+      padding: 12px 16px;
+      font-size: 14px;
+      border-bottom: 1px solid rgba(26, 20, 18, 0.06);
+    }
+    .info-table .label-cell {
+      width: 130px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(26, 20, 18, 0.4);
+      vertical-align: top;
+    }
+    .info-table .value-cell {
+      color: #1A1412;
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .info-table tr:last-child td {
+      border-bottom: none;
+    }
+    .notes-row .value-cell {
+      font-weight: 300 !important;
+      font-style: italic;
+      color: rgba(26, 20, 18, 0.6) !important;
+    }
+
+    /* ── Contact Card ── */
+    .contact-card {
+      background-color: #F5F2ED;
+      border-left: 3px solid #7C1C23;
+      padding: 20px 24px;
+      margin: 0 0 20px;
+    }
+    .contact-card-title {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #7C1C23;
+      margin: 0 0 10px;
+    }
+    .contact-card p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(26, 20, 18, 0.7);
+      margin: 0;
+    }
+    .contact-card a {
+      color: #7C1C23;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    /* ── Hint ── */
+    .action-hint {
+      text-align: center;
+      font-size: 12px;
+      color: rgba(26, 20, 18, 0.35);
+      font-style: italic;
+      margin: 20px 0 0;
+      padding-top: 16px;
+      border-top: 1px solid rgba(26, 20, 18, 0.06);
+    }
+
+    /* ── Footer ── */
+    .footer {
+      border-top: 1px solid rgba(26, 20, 18, 0.08);
+      text-align: center;
+      padding: 20px 40px;
+    }
+    .footer p {
+      font-size: 10px;
+      color: rgba(26, 20, 18, 0.30);
+      margin: 0;
+    }
+
+    @media only screen and (max-width: 620px) {
+      .email-container { width: 100% !important; }
+      .body-content { padding: 28px 20px !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="email-wrapper">
+    <table role="presentation" class="email-container" align="center" cellpadding="0" cellspacing="0" width="600">
+
+      <!-- HEADER -->
+      <tr>
+        <td class="header">
+          <img src="https://www.caffebacco.at/assets/logo-text-DBWFV4ig.png" alt="Caffe Bacco" style="height: 40px; width: auto; display: inline-block;" />
+          <p class="header-sub">Internes Reservierungsmanagement</p>
+        </td>
+      </tr>
+
+      <!-- ALERT BAR -->
+      <tr>
+        <td class="alert-bar">
+          <p>🍽️ Neue Reservierungsanfrage</p>
+        </td>
+      </tr>
+
+      <!-- BODY -->
+      <tr>
+        <td class="body-content">
+
+          <p class="section-title">Reservierungsdetails</p>
+          <p class="section-sub">Eingegangen am {{ $('Webhook').item.json.body.submittedAt }} via Website</p>
+
+          <!-- Info Table -->
+          <table role="presentation" class="info-table" cellpadding="0" cellspacing="0">
+            <tr>
+              <td class="label-cell">Name</td>
+              <td class="value-cell">{{ $('Webhook').item.json.body.name }}</td>
+            </tr>
+            <tr>
+              <td class="label-cell">Datum</td>
+              <td class="value-cell">{{ $('Webhook').item.json.body.date }}</td>
+            </tr>
+            <tr>
+              <td class="label-cell">Uhrzeit</td>
+              <td class="value-cell">{{ $('Webhook').item.json.body.time }} Uhr</td>
+            </tr>
+            <tr>
+              <td class="label-cell">Personen</td>
+              <td class="value-cell">{{ $('Webhook').item.json.body.guests }}</td>
+            </tr>
+            <tr class="notes-row">
+              <td class="label-cell">Anmerkungen</td>
+              <td class="value-cell">{{ $('Webhook').item.json.body.notes || '–' }}</td>
+            </tr>
+          </table>
+
+          <!-- Contact Info -->
+          <div class="contact-card">
+            <p class="contact-card-title">Kontakt des Gastes</p>
+            <p>E-Mail: <a href="mailto:{{ $('Webhook').item.json.body.email }}">{{ $('Webhook').item.json.body.email }}</a></p>
+            <p>Telefon: <a href="tel:{{ $('Webhook').item.json.body.phone }}">{{ $('Webhook').item.json.body.phone }}</a></p>
+          </div>
+
+          <!-- Hint for native n8n buttons below -->
+          <p class="action-hint">
+            ↓ Bitte über die Buttons unten bestätigen oder ablehnen ↓
+          </p>
+
+        </td>
+      </tr>
+
+      <!-- FOOTER -->
+      <tr>
+        <td class="footer">
+          <p>Caffe Bacco Reservierungssystem · Automatisiert via n8n</p>
+        </td>
+      </tr>
+
+    </table>
+  </div>
+</body>
+</html>

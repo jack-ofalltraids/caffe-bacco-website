@@ -70,6 +70,7 @@ export function ReservationModal({ isOpen, onClose }: ReservationModalProps) {
         setStatus('loading');
 
         const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL;
+        const webhookToken = import.meta.env.VITE_N8N_WEBHOOK_TOKEN;
 
         if (!webhookUrl) {
             console.error('Webhook URL not configured');
@@ -82,6 +83,7 @@ export function ReservationModal({ isOpen, onClose }: ReservationModalProps) {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    ...(webhookToken && { Authorization: webhookToken }),
                 },
                 body: JSON.stringify({
                     ...formData,
