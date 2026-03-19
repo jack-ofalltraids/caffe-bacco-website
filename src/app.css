@@ -804,10 +804,20 @@
     text-transform: uppercase;
 }
 
-.cb-footer-accent-line {
-    width: 40px;
-    height: 2px;
-    background: var(--cb-primary);
+.cb-footer-ig {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-decoration: none;
+    color: var(--cb-ink-40);
+    font-size: 0.625rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+.cb-footer-ig:hover {
+    color: var(--cb-primary);
 }
 
 /* ============================================
@@ -1081,4 +1091,176 @@
 .cb-mobile-bar {
     background: var(--cb-bg);
     border-top: 1px solid var(--cb-ink-08);
+}
+
+/* ============================================
+   LEGAL MODAL (Impressum / Datenschutz)
+   ============================================ */
+.legal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: rgba(26, 20, 18, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    animation: legalFadeIn 0.2s ease;
+}
+
+@keyframes legalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.legal-modal {
+    background: var(--cb-bg);
+    width: 100%;
+    max-width: 680px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    animation: legalSlideUp 0.3s ease;
+}
+
+@keyframes legalSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.legal-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 2rem;
+    border-bottom: 2px solid var(--cb-primary);
+    flex-shrink: 0;
+}
+
+.legal-modal-title {
+    font-family: var(--cb-font-display);
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--cb-ink);
+    margin: 0;
+}
+
+.legal-modal-close {
+    background: none;
+    border: 1px solid var(--cb-ink-15);
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.75rem;
+    color: var(--cb-ink-40);
+    transition: all 0.2s;
+}
+.legal-modal-close:hover {
+    border-color: var(--cb-primary);
+    color: var(--cb-primary);
+}
+
+.legal-modal-body {
+    padding: 2rem;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ── Legal Content Typography ── */
+.legal-content h3 {
+    font-family: var(--cb-font-display);
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: var(--cb-ink);
+    margin: 2rem 0 0.75rem;
+}
+.legal-content h3:first-child {
+    margin-top: 0;
+}
+
+.legal-content p {
+    font-family: var(--cb-font-body);
+    font-size: 0.8125rem;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--cb-ink-70);
+    margin: 0 0 0.75rem;
+}
+
+.legal-content ul {
+    padding-left: 1.25rem;
+    margin: 0 0 1rem;
+}
+.legal-content li {
+    font-family: var(--cb-font-body);
+    font-size: 0.8125rem;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--cb-ink-70);
+    margin-bottom: 0.25rem;
+}
+
+.legal-content strong {
+    font-weight: 600;
+    color: var(--cb-ink);
+}
+
+.legal-content a {
+    color: var(--cb-primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+.legal-content a:hover {
+    text-decoration: underline;
+}
+
+.legal-updated {
+    margin-top: 2rem !important;
+    font-size: 0.6875rem !important;
+    color: var(--cb-ink-40) !important;
+    font-style: italic;
+}
+
+/* ── Footer Legal Links ── */
+.cb-footer-legal {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    padding-top: 1rem;
+}
+.cb-footer-legal button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--cb-font-body);
+    font-size: 0.5625rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cb-ink-40);
+    padding: 0;
+    transition: color 0.2s;
+}
+.cb-footer-legal button:hover {
+    color: var(--cb-primary);
+}
+
+@media (max-width: 768px) {
+    .legal-modal {
+        max-height: 90vh;
+    }
+    .legal-modal-header {
+        padding: 1.25rem 1.25rem;
+    }
+    .legal-modal-body {
+        padding: 1.25rem;
+    }
 }

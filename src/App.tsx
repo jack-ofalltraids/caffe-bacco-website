@@ -2,8 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import { MapPin, Clock, Phone, AlertCircle, CalendarDays, ArrowRight } from 'lucide-react';
+import { MapPin, Clock, Phone, AlertCircle, CalendarDays, ArrowRight, Instagram } from 'lucide-react';
 import { ReservationModal } from './components/ReservationModal';
+import { LegalModal, ImpressumContent, DatenschutzContent } from './components/LegalModal';
 import './app.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -340,7 +341,7 @@ function ChiSiamo() {
 // ============================================
 // FOOTER – with prominent cash-only badge
 // ============================================
-function Footer() {
+function Footer({ onOpenImpressum, onOpenDatenschutz }: { onOpenImpressum: () => void; onOpenDatenschutz: () => void }) {
     const footerRef = useRef<HTMLElement>(null);
     useScrollReveal(footerRef);
 
@@ -402,8 +403,16 @@ function Footer() {
 
                 <div className="cb-footer-bottom cb-reveal">
                     <p>© {new Date().getFullYear()} Caffe Bacco</p>
-                    <div className="cb-footer-accent-line" />
+                    <a href="https://www.instagram.com/caffebacco" target="_blank" rel="noopener noreferrer" className="cb-footer-ig">
+                        <Instagram size={14} />
+                        <span>@caffebacco</span>
+                    </a>
                     <p>Wien · Trattoria</p>
+                </div>
+
+                <div className="cb-footer-legal cb-reveal">
+                    <button onClick={onOpenImpressum}>Impressum</button>
+                    <button onClick={onOpenDatenschutz}>Datenschutz</button>
                 </div>
             </div>
         </footer>
@@ -471,6 +480,8 @@ function MobileBar({ onOpenReservation }: { onOpenReservation: () => void }) {
 // ============================================
 function App() {
     const [isReservationOpen, setIsReservationOpen] = useState(false);
+    const [isImpressumOpen, setIsImpressumOpen] = useState(false);
+    const [isDatenschutzOpen, setIsDatenschutzOpen] = useState(false);
     const handleOpen = () => setIsReservationOpen(true);
     const handleClose = () => setIsReservationOpen(false);
 
@@ -484,13 +495,24 @@ function App() {
                 <Divider />
                 <ChiSiamo />
             </main>
-            <Footer />
+            <Footer
+                onOpenImpressum={() => setIsImpressumOpen(true)}
+                onOpenDatenschutz={() => setIsDatenschutzOpen(true)}
+            />
 
             <div className="md:hidden">
                 <MobileBar onOpenReservation={handleOpen} />
             </div>
 
             <ReservationModal isOpen={isReservationOpen} onClose={handleClose} />
+
+            <LegalModal isOpen={isImpressumOpen} onClose={() => setIsImpressumOpen(false)} title="Impressum">
+                <ImpressumContent />
+            </LegalModal>
+
+            <LegalModal isOpen={isDatenschutzOpen} onClose={() => setIsDatenschutzOpen(false)} title="Datenschutzerklärung">
+                <DatenschutzContent />
+            </LegalModal>
         </div>
     );
 }
