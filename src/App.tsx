@@ -5,6 +5,7 @@ import { useGSAP } from '@gsap/react';
 import { MapPin, Clock, Phone, AlertCircle, CalendarDays, ArrowRight, Instagram } from 'lucide-react';
 import { ReservationModal } from './components/ReservationModal';
 import { LegalModal, ImpressumContent, DatenschutzContent } from './components/LegalModal';
+import { NewsPopup } from './components/NewsPopup';
 import './app.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -513,6 +514,8 @@ function App() {
             <LegalModal isOpen={isDatenschutzOpen} onClose={() => setIsDatenschutzOpen(false)} title="Datenschutzerklärung">
                 <DatenschutzContent />
             </LegalModal>
+
+            <NewsPopup />
         </div>
     );
 }
