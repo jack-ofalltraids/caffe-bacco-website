@@ -18,48 +18,30 @@ export function NewsPopup() {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const cacheBuster = `?t=${new Date().getTime()}`;
-        
-        // Production: n8n webhook, Fallback: local news.json (dev)
-        const WEBHOOK_URL = 'https://n8n.automationaffairs.com/webhook/aa0dc420-c7b7-4284-b671-c2994d31d1f4';
-        let response: Response;
-        
-        try {
-          response = await fetch(`${WEBHOOK_URL}${cacheBuster}`);
-        } catch {
-          // n8n not reachable (e.g. localhost dev) – use local fallback
-          response = await fetch(`/news.json${cacheBuster}`);
-        }
-        
+        const response = await fetch(`/news.json?t=${new Date().getTime()}`);
         if (!response.ok) return;
         
-        // Guard against HTML responses
+        // Guard against HTML responses (World4You redirect)
         const contentType = response.headers.get('content-type') || '';
         if (contentType.includes('text/html')) {
-          response = await fetch(`/news.json${cacheBuster}`);
-          if (!response.ok) return;
+          return;
         }
         
         const raw = await response.json();
-
-        
-        // n8n may return an array or an object – normalize to object
         const data: NewsData = Array.isArray(raw) ? raw[0] : raw;
         if (!data) return;
         
-        // Normalize ISO date strings (e.g. "2026-04-12T22:05:18.802Z") to "dd.MM.yyyy"
+        // Normalize ISO date strings to dd.MM.yyyy
         if (data.date && data.date.includes('T')) {
           const d = new Date(data.date);
           data.date = `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}.${d.getFullYear()}`;
         }
         
-
-        
         if (data.active && data.text) {
           setNews(data);
           setIsVisible(true);
         }
-      } catch (err) {
+      } catch {
         // Silently fail – no news is fine, the popup just stays hidden
       }
     };
